@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 
 ApplicationWindow {
-    id: window
+    id: app
 
     width: 500
     height: 600
@@ -16,6 +16,7 @@ ApplicationWindow {
                 name: "SplashScreen"
                 PropertyChanges {
                     target: splashScreen
+                    x: 0
                     visible: true
                 }
             },
@@ -23,25 +24,88 @@ ApplicationWindow {
                 name: "HomeScreen"
                 PropertyChanges {
                     target: homeScreen
+                    x: 0
+                    visible: true
+                }
+            },
+            State {
+                name: "SettingsScreen"
+                PropertyChanges {
+                    target: settingsScreen
+                    x: 0
+                    visible: true
+                }
+            },
+            State {
+                name: "NewGameScreen"
+                PropertyChanges {
+                    target: newGameScreen
+                    x: 0
                     visible: true
                 }
             }
+        ]
 
+        transitions: [
+            Transition {
+                from: "*"
+                to: "HomeScreen"
+                NumberAnimation {
+                    properties: "x"
+                    from: app.width
+                    easing.type: Easing.Linear
+                    duration: 500
+                }
+            },
+            Transition {
+                from: "HomeScreen"
+                to: "SettingsScreen"
+                NumberAnimation {
+                    properties: "x"
+                    from: app.width
+                    easing.type: Easing.Linear
+                    duration: 500
+                }
+            },
+            Transition {
+                from: "HomeScreen"
+                to: "NewGameScreen"
+                NumberAnimation {
+                    properties: "x"
+                    from: app.width
+                    easing.type: Easing.Linear
+                    duration: 500
+                }
+            }
         ]
     }
 
     SplashScreen {
         id: splashScreen
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height
 
-        visible: true
-        color: "red"
-
-        onFinished: gameLogic.state = "HomeScreen"
+        onSkip: gameLogic.state = "HomeScreen"
     }
 
     HomeScreen {
         id: homeScreen
-        anchors.fill: parent
+        width: app.width
+        height: app.height
+
+        onSettings: gameLogic.state = "SettingsScreen"
+        onNew_game: gameLogic.state = "NewGameScreen"
+    }
+
+    SettingsScreen {
+        id: settingsScreen
+        width: app.width
+        height: app.height
+    }
+
+    NewGameScreen {
+        id: newGameScreen
+        width: app.width
+        height: app.height
     }
 }

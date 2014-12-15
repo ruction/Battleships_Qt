@@ -4,5 +4,9 @@
         <file>HomeScreen.qml</file>
         <file>BaseScreen.qml</file>
         <file>SplashScreen.qml</file>
+        <file>animation.gif</file>
+        <file>SettingsScreen.qml</file>
+        <file>NewGameScreen.qml</file>
+        <file>NavigationBar.qml</file>
     </qresource>
 </RCC>
