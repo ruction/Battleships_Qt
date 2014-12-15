@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>StartScreen.qml</file>
+        <file>HomeScreen.qml</file>
+        <file>BaseScreen.qml</file>
+        <file>SplashScreen.qml</file>
+    </qresource>
+</RCC>
