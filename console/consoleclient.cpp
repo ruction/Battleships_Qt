@@ -10,12 +10,12 @@ ConsoleClient::ConsoleClient()
 
 void ConsoleClient::run() {
     QList<Ship*> ships = battleships.getAvailableShips();
-    Board board = readInitialData();
-    placeShips(&board, ships);
-    shootLoop(&board, ships);
+    Board* board = readInitialData();
+    placeShips(board, ships);
+    shootLoop(board, ships);
 }
 
-Board ConsoleClient::readInitialData() {
+Board* ConsoleClient::readInitialData() {
     out << "#### WELCOME TO BATTLESHIP ####\n";
 
     // Read player name
@@ -49,8 +49,8 @@ Board ConsoleClient::readInitialData() {
     }
 
     // Creates board with the input values
-    Board board(width.toUInt(), height.toUInt());
-    board.print();
+    Board* board = new Board(width.toUInt(), height.toUInt());
+    board->print();
     return board;
 }
 

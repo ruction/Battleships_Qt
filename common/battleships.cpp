@@ -4,8 +4,8 @@
  * Default constructor with initial values for playerName
  * and shotsFired parameter
  */
-Battleships::Battleships()
-    :playerName("empty"), shotsFired(0)
+Battleships::Battleships(QObject *parent)
+    :QObject(parent), playerName("empty"), shotsFired(0)
 {
     /*
      * Fills QList<Ship*> availableShips with five

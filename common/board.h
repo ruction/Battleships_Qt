@@ -1,7 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include <QString>
+#include <QObject>
 #include <QSet>
 
 /*
@@ -16,8 +16,10 @@ quint8 randomValue(const quint8 max);
 
 class Ship;
 
-class Board {
+class Board : public QObject {
+    Q_OBJECT
 public:
+    Board(QObject* parent = 0);
     Board(quint8 width, quint8 height);
     quint8 getWidth() const;
     quint8 getHeight() const;

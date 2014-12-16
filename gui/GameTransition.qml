@@ -22,7 +22,13 @@ Transition {
         SequentialAnimation {
             id: innerAnimation
         }
+        PropertyAction {
+            targets: root.oldItem
+            property: "visible"
+            value: false
+        }
         ScriptAction {
+
         }
     }
 }

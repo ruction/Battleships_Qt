@@ -1,12 +1,14 @@
 #ifndef SHIP_H
 #define SHIP_H
 
-#include <QString>
+#include <QObject>
 #include <QSet>
 
 
-class Ship {
+class Ship : public QObject {
+    Q_OBJECT
 public:
+    Ship(QObject* parent = 0);
     Ship(quint8 length);
     Ship(quint8 length, QString name);
     quint8 getLength() const;

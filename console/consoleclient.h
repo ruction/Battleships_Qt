@@ -13,7 +13,7 @@ class ConsoleClient
 public:
     ConsoleClient();
     void run();
-    Board readInitialData();
+    Board *readInitialData();
     void placeShips(Board *board, QList<Ship*> ships);
     void shootLoop(Board *board, QList<Ship*> ships);
 private:

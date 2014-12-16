@@ -3,6 +3,11 @@
 /*
  * Constructor with ship length initialisation
  */
+Ship::Ship(QObject *parent)
+    :QObject(parent)
+{
+}
+
 Ship::Ship(quint8 length)
     :length(length)
 {

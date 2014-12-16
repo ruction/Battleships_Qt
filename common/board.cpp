@@ -35,6 +35,10 @@ quint8 randomValue(const quint8 max) {
  * Constructor with board initialisation of
  * width and height
  */
+Board::Board(QObject *parent)
+    :QObject(parent)
+{}
+
 Board::Board(quint8 width, quint8 height)
     :height(height), width(width)
 {
