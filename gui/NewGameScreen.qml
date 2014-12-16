@@ -6,6 +6,10 @@ BaseScreen {
     id: root
 
     signal cancel
+    property string playerName: playerName_input.text
+    property string boardWidth: boardWidth_input.text
+    property string boardHeight: boardHeight_input.text
+    property bool autoPlaceShips
 
     NavigationBar {
         id: navigationBar
@@ -13,30 +17,26 @@ BaseScreen {
         title: "NEW GAME"
     }
 
-    ColumnLayout {
-        anchors.centerIn: parent
+    TabView {
+        width: parent.width
+        anchors.top: navigationBar.bottom
+        anchors.bottom: parent.bottom
 
-        TextField {
-            id: playerName_input
-            placeholderText: "testhans"
-        }
-        TextField {
-            id: boardWidth_input
-            placeholderText: "10"
-        }
-        TextField {
-            id: boardHeight_input
-            placeholderText: "10"
-        }
-        Button {
-            id: start_btn
-            text: "start game"
-        }
-        Button {
-            id: cancel_btn
-            text: "cancel"
+        Tab {
+            title: "Single Player"
 
-            onClicked: root.cancel();
+            SinglePlayerScreen {
+
+            }
+        }
+        Tab {
+            title: "Multi Player"
+
+            MultiPlayerScreen {
+
+            }
         }
     }
+
+
 }

@@ -10,5 +10,7 @@
         <file>NavigationBar.qml</file>
         <file>GameTransition.qml</file>
         <file>Board.qml</file>
+        <file>SinglePlayerScreen.qml</file>
+        <file>MultiPlayerScreen.qml</file>
     </qresource>
 </RCC>
