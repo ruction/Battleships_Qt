@@ -8,5 +8,6 @@
         <file>SettingsScreen.qml</file>
         <file>NewGameScreen.qml</file>
         <file>NavigationBar.qml</file>
+        <file>GameTransition.qml</file>
     </qresource>
 </RCC>

@@ -16,7 +16,6 @@ ApplicationWindow {
                 name: "SplashScreen"
                 PropertyChanges {
                     target: splashScreen
-                    x: 0
                     visible: true
                 }
             },
@@ -24,7 +23,6 @@ ApplicationWindow {
                 name: "HomeScreen"
                 PropertyChanges {
                     target: homeScreen
-                    x: 0
                     visible: true
                 }
             },
@@ -32,7 +30,6 @@ ApplicationWindow {
                 name: "SettingsScreen"
                 PropertyChanges {
                     target: settingsScreen
-                    x: 0
                     visible: true
                 }
             },
@@ -40,50 +37,34 @@ ApplicationWindow {
                 name: "NewGameScreen"
                 PropertyChanges {
                     target: newGameScreen
-                    x: 0
                     visible: true
                 }
             }
         ]
 
         transitions: [
-            Transition {
-                from: "*"
-                to: "HomeScreen"
+            GameTransition {
+                id: gameTransition
+
+                oldItem: splashScreen
+                newItem: homeScreen
+
                 NumberAnimation {
+                    target: gameTransition.newItem
                     properties: "x"
                     from: app.width
+                    to: 0
                     easing.type: Easing.Linear
                     duration: 500
                 }
-            },
-            Transition {
-                from: "HomeScreen"
-                to: "SettingsScreen"
-                NumberAnimation {
-                    properties: "x"
-                    from: app.width
-                    easing.type: Easing.Linear
-                    duration: 500
-                }
-            },
-            Transition {
-                from: "HomeScreen"
-                to: "NewGameScreen"
-                NumberAnimation {
-                    properties: "x"
-                    from: app.width
-                    easing.type: Easing.Linear
-                    duration: 500
-                }
-            }
+           }
         ]
     }
 
     SplashScreen {
         id: splashScreen
-        width: parent.width
-        height: parent.height
+        width: app.width
+        height: app.height
 
         onSkip: gameLogic.state = "HomeScreen"
     }

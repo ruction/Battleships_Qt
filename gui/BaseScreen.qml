@@ -6,4 +6,12 @@ Rectangle {
     visible: false
 
     color: "#c8c8ff"
+
+    function start() {
+
+    }
+
+    function stop() {
+
+    }
 }
