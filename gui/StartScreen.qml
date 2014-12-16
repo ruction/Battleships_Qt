@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import Battleships 1.0
 
 ApplicationWindow {
     id: app
@@ -7,6 +8,26 @@ ApplicationWindow {
     width: 500
     height: 600
     visible: true
+
+    Battleships {
+        id: battleships
+        playerName: "testhans"
+        shotsFired: "0"
+//        availableShips:
+    }
+
+    Ship {
+        id: ship
+//        length:
+//        name:
+//        positions:
+    }
+
+    Board {
+        id: board
+
+    }
+
 
     Item {
         id: gameLogic

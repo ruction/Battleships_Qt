@@ -18,6 +18,10 @@ class Ship;
 
 class Board : public QObject {
     Q_OBJECT
+    Q_PROPERTY(quint8 width READ getWidth NOTIFY widthChanged)
+    Q_PROPERTY(quint8 height READ getHeight NOTIFY heightChanged)
+    Q_PROPERTY(QSet<quint16> shipPositions READ getShipPositions NOTIFY shipPositionsChanged)
+    Q_PROPERTY(QSet<quint16> shots READ getShots NOTIFY shotsChanged)
 public:
     Board(QObject* parent = 0);
     Board(quint8 width, quint8 height);
@@ -35,6 +39,11 @@ private:
     quint8 width;                   // Board width
     QSet<quint16> shipPositions;    // Set with all indexes of every ship
     QSet<quint16> shots;            // Set with all shots
+signals:
+    void widthChanged();
+    void heightChanged();
+    void shipPositionsChanged();
+    void shotsChanged();
 };
 
 #endif // BOARD_H

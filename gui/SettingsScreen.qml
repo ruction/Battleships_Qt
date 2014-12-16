@@ -17,7 +17,7 @@ BaseScreen {
         anchors.centerIn: parent
 
         Text {
-            text: "Settings"
+            text: battleships.playerName
         }
         Button {
             text: "cancel"

@@ -8,6 +8,8 @@
 class Battleships : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString playerName READ getPlayerName WRITE setPlayerName NOTIFY playerNameChanged)
+    Q_PROPERTY(quint16 shotsFired READ getShotsFired NOTIFY shotsFiredChanged)
+    Q_PROPERTY(QList<Ship*> availableShips READ getAvailableShips NOTIFY availableShipsChanged)
 public:
     Battleships(QObject* parent = 0);
     ~Battleships();
@@ -22,6 +24,8 @@ private:
     QList<Ship*> availableShips;    // List of ships, to be placed
 signals:
     void playerNameChanged();
+    void shotsFiredChanged();
+    void availableShipsChanged();
 };
 
 #endif // BATTLESHIPS_H
