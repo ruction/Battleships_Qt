@@ -5,6 +5,12 @@ import QtQuick.Layouts 1.1
 BaseScreen {
     id: root
 
+    NavigationBar {
+        id: navigationBar
+
+        title: "NEW GAME"
+    }
+
     ColumnLayout {
         anchors.centerIn: parent
 

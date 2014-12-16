@@ -5,8 +5,12 @@ import QtQuick.Layouts 1.1
 BaseScreen {
     id: root
 
+    signal cancel
+
     NavigationBar {
         id: navigationBar
+
+        title: "Settings"
     }
 
     ColumnLayout {
@@ -14,6 +18,10 @@ BaseScreen {
 
         Text {
             text: "Settings"
+        }
+        Button {
+            text: "cancel"
+            onClicked: root.cancel()
         }
     }
 }

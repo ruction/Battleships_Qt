@@ -49,15 +49,72 @@ ApplicationWindow {
                 oldItem: splashScreen
                 newItem: homeScreen
 
+                from: "SplashScreen"
+                to: "HomeScreen"
+
                 NumberAnimation {
                     target: gameTransition.newItem
                     properties: "x"
                     from: app.width
                     to: 0
                     easing.type: Easing.Linear
-                    duration: 500
+                    duration: 400
                 }
-           }
+            },
+            GameTransition {
+                id: gameTransition2
+
+                oldItem: homeScreen
+                newItem: settingsScreen
+
+                from: "HomeScreen"
+                to: "SettingsScreen"
+
+                NumberAnimation {
+                    target: gameTransition2.newItem
+                    properties: "x"
+                    from: app.width
+                    to: 0
+                    easing.type: Easing.Linear
+                    duration: 400
+                }
+            },
+            GameTransition {
+                id: gameTransition3
+
+                oldItem: settingsScreen
+                newItem: homeScreen
+
+                from: "SettingsScreen"
+                to: "HomeScreen"
+
+                NumberAnimation {
+                    target: gameTransition3.oldItem
+                    properties: "x"
+                    from: 0
+                    to: app.width
+                    easing.type: Easing.Linear
+                    duration: 400
+                }
+            },
+            GameTransition {
+                id: gameTransition4
+
+                oldItem: homeScreen
+                newItem: newGameScreen
+
+                from: "HomeScreen"
+                to: "NewGameScreen"
+
+                NumberAnimation {
+                    target: gameTransition4.newItem
+                    properties: "x"
+                    from: app.width
+                    to: 0
+                    easing.type: Easing.Linear
+                    duration: 400
+                }
+            }
         ]
     }
 
@@ -82,6 +139,8 @@ ApplicationWindow {
         id: settingsScreen
         width: app.width
         height: app.height
+
+        onCancel: gameLogic.state = "HomeScreen"
     }
 
     NewGameScreen {
