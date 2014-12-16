@@ -12,7 +12,7 @@ ApplicationWindow {
     Battleships {
         id: battleships
         playerName: "testhans"
-        shotsFired: "0"
+//        shotsFired:
 //        availableShips:
     }
 
@@ -25,7 +25,10 @@ ApplicationWindow {
 
     Board {
         id: board
-
+//        width:
+//        height:
+//        shipPositions:
+//        shots:
     }
 
 
@@ -121,6 +124,24 @@ ApplicationWindow {
             GameTransition {
                 id: gameTransition4
 
+                oldItem: newGameScreen
+                newItem: homeScreen
+
+                from: "NewGameScreen"
+                to: "HomeScreen"
+
+                NumberAnimation {
+                    target: gameTransition4.oldItem
+                    properties: "x"
+                    from: 0
+                    to: app.width
+                    easing.type: Easing.Linear
+                    duration: 400
+                }
+            },
+            GameTransition {
+                id: gameTransition5
+
                 oldItem: homeScreen
                 newItem: newGameScreen
 
@@ -128,7 +149,7 @@ ApplicationWindow {
                 to: "NewGameScreen"
 
                 NumberAnimation {
-                    target: gameTransition4.newItem
+                    target: gameTransition5.newItem
                     properties: "x"
                     from: app.width
                     to: 0
@@ -168,5 +189,7 @@ ApplicationWindow {
         id: newGameScreen
         width: app.width
         height: app.height
+
+        onCancel: gameLogic.state = "HomeScreen"
     }
 }
