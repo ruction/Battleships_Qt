@@ -19,13 +19,24 @@ BaseScreen {
             id: board_me
         }
 
-        ListView {
-            width: 200
-            height: 200
-
+        Repeater {
             model: battleships.availableShips
-            delegate: Text {
-                text: model.name
+
+            delegate: Rectangle {
+                width: ship_element.width
+                height: ship_element.height
+
+                RowLayout {
+                    id: ship_element
+
+                    Text {
+                        id: ship_meta
+                        text: model.name + " : " + model.length
+                    }
+                    Image {
+                        source: "ship.png"
+                    }
+                }
             }
         }
     }

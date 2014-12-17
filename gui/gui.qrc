@@ -16,5 +16,6 @@
         <file>water.png</file>
         <file>fired.png</file>
         <file>GameScreen.qml</file>
+        <file>ship.png</file>
     </qresource>
 </RCC>
