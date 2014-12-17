@@ -9,7 +9,7 @@
         <file>NewGameScreen.qml</file>
         <file>NavigationBar.qml</file>
         <file>GameTransition.qml</file>
-        <file>Board.qml</file>
+        <file>BoardView.qml</file>
         <file>SinglePlayerScreen.qml</file>
         <file>MultiPlayerScreen.qml</file>
         <file>PlaceShipsScreen.qml</file>

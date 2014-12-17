@@ -13,7 +13,6 @@ ColumnLayout {
     property string playerName: playerName_input.text
     property int boardWidth: boardWidth_slider.value
     property int boardHeight: boardHeight_slider.value
-    property bool autoPlaceShips
 
     TextField {
         id: playerName_input
@@ -43,31 +42,6 @@ ColumnLayout {
         updateValueWhileDragging: true
         stepSize: 1.0
     }
-    GroupBox {
-        id: autoPlaceShips_input
-        title: "Auto place ships"
-
-        RowLayout {
-            ExclusiveGroup { id: autoPlaceShipsGroup }
-            RadioButton {
-                text: "Yes"
-                checked: true
-                exclusiveGroup: autoPlaceShipsGroup
-                onClicked: {
-                    autoPlaceShips = true;
-                }
-            }
-            RadioButton {
-                text: "No"
-                exclusiveGroup: autoPlaceShipsGroup
-                onClicked: {
-                    autoPlaceShips = false;
-                }
-            }
-        }
-        Layout.columnSpan: 2
-    }
-
     Button {
         id: start_btn
         text: "start game"

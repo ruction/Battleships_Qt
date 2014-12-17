@@ -69,7 +69,7 @@ void ConsoleClient::placeShips(Board *board, QList<Ship*> ships) {
 
         // Tries to place all ships randomly, until all are placed
         if (randomAll == "y") {
-            if(board->place(ship, randomValue(board->getWidth()), randomValue(board->getHeight()), Direction(randomValue(3)) )) {}
+            if(board->place(ship, Board::randomValue(board->getWidth()), Board::randomValue(board->getHeight()), Board::Direction(Board::randomValue(3)) )) {}
             else {
                 --i;
                 continue;
@@ -85,7 +85,7 @@ void ConsoleClient::placeShips(Board *board, QList<Ship*> ships) {
 
             // Place a single ship randomly
             if (randomSingle == "y") {
-                if(board->place(ship, randomValue(board->getWidth()), randomValue(board->getHeight()), Direction(randomValue(3)) )) {}
+                if(board->place(ship, Board::randomValue(board->getWidth()), Board::randomValue(board->getHeight()), Board::Direction(Board::randomValue(3)) )) {}
                 else {
                     --i;
                     continue;
@@ -119,13 +119,13 @@ void ConsoleClient::placeShips(Board *board, QList<Ship*> ships) {
                 // Checks if direction input is valid
                 while(true) {
                      directionString = in.readLine();
-                     if (directionFromString(directionString) == WRONG)
+                     if (Board::directionFromString(directionString) == Board::WRONG)
                          out << "Try again...: " << flush;
                      else
                          break;
                 }
                 // Finally place ship
-                if(board->place(ship, x.toUInt(), y.toUInt(), directionFromString(directionString))) {}
+                if(board->place(ship, x.toUInt(), y.toUInt(), Board::directionFromString(directionString))) {}
                 else {
                     out << "Ship placement error! Try again.\n" << flush;
                     --i;

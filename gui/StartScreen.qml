@@ -233,6 +233,7 @@ ApplicationWindow {
             }
 
             gameLogic.state = "PlaceShipsScreen"
+
         }
     }
 

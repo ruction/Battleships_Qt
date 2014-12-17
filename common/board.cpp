@@ -2,12 +2,13 @@
 #include "ship.h"
 #include <QTextStream>
 #include <QtGlobal>
+#include <QSize>
 
 /*
  * Converts a overloaded string into a Direction enum value
  * and returns it, otherwise WRONG is returned.
  */
-Direction directionFromString(const QString direction) {
+Board::Direction Board::directionFromString(const QString direction) {
     if (direction == "NORTH")
         return NORTH;
     else if (direction == "EAST")
@@ -24,7 +25,7 @@ Direction directionFromString(const QString direction) {
  * Returns a random value between 0 and
  * the overloaded parameter max
  */
-quint8 randomValue(const quint8 max) {
+quint8 Board::randomValue(const quint8 max) {
     quint8 min = 0;
     return qrand() % ((max + 1) - min) + min;
 }
@@ -100,6 +101,8 @@ bool Board::place(Ship *ship, quint8 x, quint8 y, Direction d) {
         else if (d == EAST) ++x;
         else if (d == SOUTH) ++y;
         else if (d == WEST) --x;
+
+        emit shipAdded(x, y);
     }
 
     ship->setPositions(positions);      // save ship positions in the ship object
@@ -205,9 +208,32 @@ quint16 Board::indexFromCoordinates(const quint8 x, const quint8 y) {
         return y*width+x;
 }
 
+QSize Board::coordinatesFromIndex(const quint16 index)
+{
+    return QSize(index % width, index / width);
+}
+
 /*
  * Returns the list which holds the fired shots
  */
 QSet<quint16> Board::getShots() const {
     return shots;
+}
+
+bool Board::shipOnPosition(quint8 x, quint8 y)
+{
+    if(shipPositions.contains(indexFromCoordinates(x, y))) {
+            return true;
+    } else {
+            return false;
+    }
+}
+
+bool Board::shotOnPosition(quint8 x, quint8 y)
+{
+    if(shots.contains(indexFromCoordinates(x, y))) {
+            return true;
+    } else {
+            return false;
+    }
 }
