@@ -60,8 +60,8 @@ BaseScreen {
             }
         }
 
-        BoardView {
-            id: board_me
+        PlaceBoardView {
+            id: board_place
         }
 
         Repeater {

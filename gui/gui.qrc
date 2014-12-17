@@ -9,7 +9,7 @@
         <file>NewGameScreen.qml</file>
         <file>NavigationBar.qml</file>
         <file>GameTransition.qml</file>
-        <file>BoardView.qml</file>
+        <file>MyBoardView.qml</file>
         <file>SinglePlayerScreen.qml</file>
         <file>MultiPlayerScreen.qml</file>
         <file>PlaceShipsScreen.qml</file>
@@ -18,5 +18,7 @@
         <file>GameScreen.qml</file>
         <file>ship.png</file>
         <file>fired_damage.png</file>
+        <file>PlaceBoardView.qml</file>
+        <file>EnemyBoardView.qml</file>
     </qresource>
 </RCC>

@@ -15,14 +15,14 @@ BaseScreen {
     ColumnLayout {
         anchors.centerIn: parent
 
-        BoardView {
+        EnemyBoardView {
             id: board_enemy
 
             scale: 0.93
         }
 
-        BoardView {
-            id: board_me
+        MyBoardView {
+            id: board_my
 
             transform: Rotation {
                 origin.x: 100
