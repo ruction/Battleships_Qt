@@ -34,6 +34,10 @@ BaseScreen {
         Text {
             text: battleships.playerName
         }
+
+        Button {
+            text: "QUIT GAME"
+        }
     }
 }
 
