@@ -19,13 +19,11 @@ BaseScreen {
             id: board_me
         }
 
-        Text {
-            text: battleships.playerName
-        }
-
         ListView {
-            model: battleships.availableShips
+            width: 200
+            height: 200
 
+            model: battleships.availableShips
             delegate: Text {
                 text: model.name
             }
