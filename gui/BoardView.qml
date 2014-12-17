@@ -18,11 +18,22 @@ Grid {
             readonly property int column: model.index % board.width
 
             property bool isShip: board.shipOnPosition(row, column)
+            property bool isShot: board.shotOnPosition(row, column)
 
             Image {
                  id: img
                  anchors.fill: parent
-                 source: grid_element.isShip ? "ship.png" : "water.png"
+                 source: {
+                     if (grid_element.isShot && grid_element.isShip) {
+                        return "fired_damage.png";
+                     } else if (grid_element.isShip) {
+                         return "ship.png";
+                     } else if (grid_element.isShot) {
+                         return "fired.png";
+                     } else {
+                         return "water.png";
+                     }
+                  }
              }
 
             Connections {
@@ -30,12 +41,16 @@ Grid {
 
                 onBoardReset: {
                     grid_element.isShip = false
+                    grid_element.isShot = false
                 }
-
+                onShotAdded: {
+                    if (y === grid_element.row && x === grid_element.column) {
+                        grid_element.isShot = true;
+                    }
+                }
                 onShipAdded: {
                     if (y === grid_element.row && x === grid_element.column) {
                         grid_element.isShip = true;
-                        console.log("sadlfkj");
                     }
                 }
             }
@@ -43,10 +58,8 @@ Grid {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    console.log(grid_element.column + " : " + grid_element.row)
-                    grid_element.isShip = true
+                    grid_element.isShot = true
                 }
-
             }
         }
     }

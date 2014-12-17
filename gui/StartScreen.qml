@@ -223,7 +223,7 @@ ApplicationWindow {
         height: app.height
 
         onCancel: gameLogic.state = "HomeScreen"
-        onStartGame: {
+        onNext: {
             if (mode == "single") {
                 battleships.playerName = single.playerName
                 board.width = single.boardWidth
@@ -241,6 +241,10 @@ ApplicationWindow {
         id: placeShipsScreen
         width: app.width
         height: app.height
+
+        onStartGame: {
+            gameLogic.state = "GameScreen"
+        }
     }
 
     GameScreen {

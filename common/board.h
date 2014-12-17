@@ -42,7 +42,6 @@ public:
     Q_INVOKABLE bool shipOnPosition(quint8 x, quint8 y);
     Q_INVOKABLE bool shotOnPosition(quint8 x, quint8 y);
     Q_INVOKABLE void reset();
-
 private:
     quint8 height;                  // Board height
     quint8 width;                   // Board width
@@ -56,6 +55,7 @@ signals:
     void boardReset();
 
     void shipAdded(int x, int y);
+    void shotAdded(int x, int y);
 };
 
 #endif // BOARD_H

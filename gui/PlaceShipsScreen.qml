@@ -7,6 +7,8 @@ import Battleships 1.0
 BaseScreen {
     id: placeShipsScreen
 
+    signal startGame
+
 
     NavigationBar {
         id: navigationBar
@@ -33,7 +35,7 @@ BaseScreen {
                         var y = Math.random() * board.height + 0;
                         var direction =  Math.random() * 3 + 0;
 
-                        console.log(x + ", " + y + ", " + direction);
+//                        console.log(x + ", " + y + ", " + direction);
                         if (board.place(ship, x, y, direction)) {}
                         else {
                             --i;
@@ -53,7 +55,8 @@ BaseScreen {
             }
 
             Button {
-                text: "SAVE"
+                text: "START GAME"
+                onClicked: startGame()
             }
         }
 

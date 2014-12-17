@@ -124,6 +124,7 @@ bool Board::shoot(quint8 x, quint8 y) {
     if (index == quint16(-1))
         return false;
     shots.insert(index);
+    emit shotAdded(x,y);
     return true;
 }
 

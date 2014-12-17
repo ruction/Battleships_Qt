@@ -17,5 +17,6 @@
         <file>fired.png</file>
         <file>GameScreen.qml</file>
         <file>ship.png</file>
+        <file>fired_damage.png</file>
     </qresource>
 </RCC>

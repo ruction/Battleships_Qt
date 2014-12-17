@@ -7,7 +7,7 @@ ColumnLayout {
     id: singlePlayer
     anchors.centerIn: parent
 
-    signal startGame
+    signal next
     signal cancel
 
     property string playerName: playerName_input.text
@@ -47,7 +47,7 @@ ColumnLayout {
         text: "start game"
 
         onClicked: {
-            singlePlayer.startGame()
+            singlePlayer.next()
         }
     }
     Button {

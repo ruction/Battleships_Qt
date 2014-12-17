@@ -6,13 +6,13 @@ ColumnLayout {
     id: multiPlayer
     anchors.centerIn: parent
 
-    signal startGame
+    signal next
     signal cancel
 
     Button {
         id: start_btn
         text: "start game"
-        onClicked: multiPlayer.startGame()
+        onClicked: multiPlayer.next()
     }
     Button {
         id: cancel_btn

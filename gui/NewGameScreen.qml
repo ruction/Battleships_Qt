@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.1
 BaseScreen {
     id: newGame
 
-    signal startGame
+    signal next
     signal cancel
 
     readonly property string mode: tabView.currentIndex === 0 ? "single" : "multi"
@@ -31,7 +31,7 @@ BaseScreen {
             SinglePlayerScreen {
                 id: singleScreen
 
-                onStartGame: newGame.startGame()
+                onNext: newGame.next()
                 onCancel: newGame.cancel()
 
                 Component.onCompleted: newGame.single = singleScreen
@@ -43,7 +43,7 @@ BaseScreen {
             MultiPlayerScreen {
                 id: multiScreen
 
-                onStartGame: newGame.startGame()
+                onNext: newGame.next()
                 onCancel: newGame.cancel()
 
                 Component.onCompleted: newGame.multi = multiScreen
