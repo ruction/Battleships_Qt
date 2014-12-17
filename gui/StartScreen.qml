@@ -65,6 +65,13 @@ ApplicationWindow {
                 }
             },
             State {
+                name: "PlaceShipsScreen"
+                PropertyChanges {
+                    target: placeShipsScreen
+                    visible: true
+                }
+            },
+            State {
                 name: "GameScreen"
                 PropertyChanges {
                     target: gameScreen
@@ -163,6 +170,24 @@ ApplicationWindow {
                     easing.type: Easing.Linear
                     duration: 400
                 }
+            },
+            GameTransition {
+                id: gameTransition6
+
+                oldItem: newGameScreen
+                newItem: placeShipsScreen
+
+                from: "NewGameScreen"
+                to: "PlaceShipsScreen"
+
+                NumberAnimation {
+                    target: gameTransition6.newItem
+                    properties: "x"
+                    from: app.width
+                    to: 0
+                    easing.type: Easing.Linear
+                    duration: 400
+                }
             }
         ]
     }
@@ -207,8 +232,14 @@ ApplicationWindow {
 //                coming soon...
             }
 
-            gameLogic.state = "GameScreen"
+            gameLogic.state = "PlaceShipsScreen"
         }
+    }
+
+    PlaceShipsScreen {
+        id: placeShipsScreen
+        width: app.width
+        height: app.height
     }
 
     GameScreen {
