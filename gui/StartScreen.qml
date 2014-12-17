@@ -11,7 +11,7 @@ ApplicationWindow {
 
     Battleships {
         id: battleships
-//        playerName:
+        playerName: "testhans"
 //        shotsFired:
 //        availableShips:
     }
