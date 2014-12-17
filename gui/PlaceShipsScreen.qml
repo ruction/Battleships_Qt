@@ -16,15 +16,19 @@ BaseScreen {
         anchors.centerIn: parent
 
         Board {
-            id: board
+            id: board_me
         }
 
         Text {
             text: battleships.playerName
         }
 
-        Button {
-            text: "QUIT GAME"
+        ListView {
+            model: battleships.availableShips
+
+            delegate: Text {
+                text: model.name
+            }
         }
     }
 }

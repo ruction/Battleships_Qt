@@ -1,6 +1,7 @@
 TEMPLATE = lib
 
 CONFIG += staticlib
+QT += qml quick
 
 SOURCES += battleships.cpp \
     board.cpp \

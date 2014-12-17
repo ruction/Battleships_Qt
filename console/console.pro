@@ -1,4 +1,4 @@
-QT       = core
+QT       = core qml quick
 
 CONFIG   += console
 CONFIG   -= app_bundle

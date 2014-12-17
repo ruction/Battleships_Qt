@@ -24,7 +24,6 @@ Grid {
                     img.source = "fired.png"
                 }
             }
-
         }
     }
 }

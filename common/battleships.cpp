@@ -52,7 +52,24 @@ void Battleships::inkrementShots() {
  * Returns the shotsFired parameter
  */
 quint16 Battleships::getShotsFired() const {
-   return shotsFired;
+    return shotsFired;
+}
+
+QQmlListProperty<Ship> Battleships::getAvailableShips_Quick()
+{
+    return QQmlListProperty<Ship> (this, 0, 0, availableShips_count, availableShips_at, 0);
+}
+
+int Battleships::availableShips_count(QQmlListProperty<Ship> *property)
+{
+    Battleships* This = qobject_cast<Battleships*>(property->object);
+    return This->availableShips.count();
+}
+
+Ship *Battleships::availableShips_at(QQmlListProperty<Ship> *property, int index)
+{
+    Battleships* This = qobject_cast<Battleships*>(property->object);
+    return This->availableShips.at(index);
 }
 
 /*
