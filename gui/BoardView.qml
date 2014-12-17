@@ -27,6 +27,11 @@ Grid {
 
             Connections {
                 target: board
+
+                onBoardReset: {
+                    grid_element.isShip = false
+                }
+
                 onShipAdded: {
                     if (y === grid_element.row && x === grid_element.column) {
                         grid_element.isShip = true;

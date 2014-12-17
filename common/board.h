@@ -37,10 +37,11 @@ public:
     void addShipPositions(const QSet<quint16> shipPositions);
     QSet<quint16> getShipPositions() const;
     quint16 indexFromCoordinates(const quint8 x, const quint8 y);
-    QSize coordinatesFromIndex(const quint16);
+    QPoint coordinatesFromIndex(const quint16);
     QSet<quint16> getShots() const;
     Q_INVOKABLE bool shipOnPosition(quint8 x, quint8 y);
     Q_INVOKABLE bool shotOnPosition(quint8 x, quint8 y);
+    Q_INVOKABLE void reset();
 
 private:
     quint8 height;                  // Board height
@@ -52,6 +53,7 @@ signals:
     void heightChanged();
     void shipPositionsChanged();
     void shotsChanged();
+    void boardReset();
 
     void shipAdded(int x, int y);
 };

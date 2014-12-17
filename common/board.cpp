@@ -2,7 +2,7 @@
 #include "ship.h"
 #include <QTextStream>
 #include <QtGlobal>
-#include <QSize>
+#include <QPoint>
 
 /*
  * Converts a overloaded string into a Direction enum value
@@ -101,12 +101,16 @@ bool Board::place(Ship *ship, quint8 x, quint8 y, Direction d) {
         else if (d == EAST) ++x;
         else if (d == SOUTH) ++y;
         else if (d == WEST) --x;
-
-        emit shipAdded(x, y);
     }
 
     ship->setPositions(positions);      // save ship positions in the ship object
     addShipPositions(positions);        // save ship positions in the united board position list
+
+    foreach(const quint16 i, positions) {
+        QPoint s = coordinatesFromIndex(i);
+        emit shipAdded(s.x(), s.y());
+    }
+
     return true;
 }
 
@@ -208,9 +212,9 @@ quint16 Board::indexFromCoordinates(const quint8 x, const quint8 y) {
         return y*width+x;
 }
 
-QSize Board::coordinatesFromIndex(const quint16 index)
+QPoint Board::coordinatesFromIndex(const quint16 index)
 {
-    return QSize(index % width, index / width);
+    return QPoint(index % width, index / width);
 }
 
 /*
@@ -236,4 +240,11 @@ bool Board::shotOnPosition(quint8 x, quint8 y)
     } else {
             return false;
     }
+}
+
+void Board::reset()
+{
+    shipPositions.clear();
+    shots.clear();
+    emit boardReset();
 }

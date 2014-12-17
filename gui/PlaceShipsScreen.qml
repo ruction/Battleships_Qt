@@ -19,19 +19,39 @@ BaseScreen {
 
         RowLayout {
             Button {
+                id: autoPlace
                 text: "AUTOPLACE"
 
                 onClicked: {
                     console.log("AUTOPLACE")
 
-                    for (var i in battleships.availableShips) {
-                        while (!board.place(battleships.availableShips[i], Math.floor((Math.random() * battleships.availableShips[i].length) + 0),
-                                    Math.floor((Math.random() * battleships.availableShips[i].length) + 0), Board.EAST)) {
-                        }
+                    autoPlace.enabled = false
+                    //outsource later!
+                    for (var i = 0; i < battleships.availableShips.length; i++) {
+                        var ship = battleships.availableShips[i];
+                        var x = Math.random() * board.width + 0;
+                        var y = Math.random() * board.height + 0;
+                        var direction =  Math.random() * 3 + 0;
 
+                        console.log(x + ", " + y + ", " + direction);
+                        if (board.place(ship, x, y, direction)) {}
+                        else {
+                            --i;
+                            continue;
+                        }
                     }
                 }
+
+                Connections {
+                    target: board
+                    onBoardReset: autoPlace.enabled = true
+                }
             }
+            Button {
+                text: "CLEAR"
+                onClicked: board.reset();
+            }
+
             Button {
                 text: "SAVE"
             }
