@@ -23,6 +23,9 @@ BaseScreen {
             model: battleships.availableShips
 
             delegate: Rectangle {
+                id: rootDel
+                property int length: model.length
+
                 width: ship_element.width
                 height: ship_element.height
 
@@ -33,8 +36,12 @@ BaseScreen {
                         id: ship_meta
                         text: model.name + " : " + model.length
                     }
-                    Image {
-                        source: "ship.png"
+                    Repeater {
+                        model: rootDel.length
+
+                        delegate: Image {
+                            source: "ship.png"
+                        }
                     }
                 }
             }
