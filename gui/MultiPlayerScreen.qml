@@ -3,16 +3,21 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 ColumnLayout {
+    id: multiPlayer
     anchors.centerIn: parent
+
+    signal startGame
+    signal cancel
 
     Button {
         id: start_btn
         text: "start game"
+        onClicked: multiPlayer.startGame()
     }
     Button {
         id: cancel_btn
         text: "cancel"
 
-        onClicked: root.cancel();
+        onClicked: multiPlayer.cancel()
     }
 }

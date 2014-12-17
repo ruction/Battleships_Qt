@@ -28,7 +28,10 @@ Battleships::~Battleships()
  * Sets the playerName
  */
 void Battleships::setPlayerName(const QString& playerName) {
-    this->playerName = playerName;
+    if (this->playerName != playerName) {
+        this->playerName = playerName;
+        emit playerNameChanged();
+    }
 }
 
 /*

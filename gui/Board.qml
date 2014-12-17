@@ -1,15 +1,30 @@
 import QtQuick 2.0
-import Battleships 1.0
+
 
 Grid {
-    id: root
+    x: 5; y: 5
+    rows: board.height; columns: board.width; /*spacing: 10*/
 
-    columns: board.width
-    rows: board.height
-    spacing: 2
-    Rectangle { color: "red"; width: 50; height: 50 }
-    Rectangle { color: "green"; width: 20; height: 50 }
-    Rectangle { color: "blue"; width: 50; height: 20 }
-    Rectangle { color: "cyan"; width: 50; height: 50 }
-    Rectangle { color: "magenta"; width: 10; height: 10 }
+    Repeater {
+        model: board.width*board.height
+
+        Rectangle {
+            width: 40
+            height: 40
+
+            Image {
+                 id: img
+                 anchors.fill: parent
+                 source: "water.png"
+             }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    img.source = "fired.png"
+                }
+            }
+
+        }
+    }
 }

@@ -11,7 +11,7 @@ ApplicationWindow {
 
     Battleships {
         id: battleships
-        playerName: "testhans"
+//        playerName:
 //        shotsFired:
 //        availableShips:
     }
@@ -61,6 +61,13 @@ ApplicationWindow {
                 name: "NewGameScreen"
                 PropertyChanges {
                     target: newGameScreen
+                    visible: true
+                }
+            },
+            State {
+                name: "GameScreen"
+                PropertyChanges {
+                    target: gameScreen
                     visible: true
                 }
             }
@@ -191,5 +198,22 @@ ApplicationWindow {
         height: app.height
 
         onCancel: gameLogic.state = "HomeScreen"
+        onStartGame: {
+            if (mode == "single") {
+                battleships.playerName = single.playerName
+                board.width = single.boardWidth
+                board.height = single.boardHeight
+            } else {
+//                coming soon...
+            }
+
+            gameLogic.state = "GameScreen"
+        }
+    }
+
+    GameScreen {
+        id: gameScreen
+        width: app.width
+        height: app.height
     }
 }

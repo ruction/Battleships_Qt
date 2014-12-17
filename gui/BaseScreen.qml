@@ -5,8 +5,6 @@ Rectangle {
     height: 600
     visible: false
 
-    color: "#c8c8ff"
-
     function start() {
 
     }

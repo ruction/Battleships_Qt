@@ -44,11 +44,25 @@ Board::Board(quint8 width, quint8 height)
 {
 }
 
+void Board::setWidth(const quint8& width) {
+    if (this->width != width) {
+        this->width = width;
+        emit widthChanged();
+    }
+}
+
 /*
  * Returns board width
  */
 quint8 Board::getWidth() const {
     return width;
+}
+
+void Board::setHeight(const quint8& height) {
+    if (this->height != height) {
+        this->height = height;
+        emit heightChanged();
+    }
 }
 
 /*

@@ -3,13 +3,15 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 BaseScreen {
-    id: root
+    id: newGame
 
+    signal startGame
     signal cancel
-    property string playerName: playerName_input.text
-    property string boardWidth: boardWidth_input.text
-    property string boardHeight: boardHeight_input.text
-    property bool autoPlaceShips
+
+    readonly property string mode: tabView.currentIndex === 0 ? "single" : "multi"
+
+    property SinglePlayerScreen single
+    property MultiPlayerScreen multi
 
     NavigationBar {
         id: navigationBar
@@ -18,6 +20,7 @@ BaseScreen {
     }
 
     TabView {
+        id: tabView
         width: parent.width
         anchors.top: navigationBar.bottom
         anchors.bottom: parent.bottom
@@ -26,17 +29,25 @@ BaseScreen {
             title: "Single Player"
 
             SinglePlayerScreen {
+                id: singleScreen
 
+                onStartGame: newGame.startGame()
+                onCancel: newGame.cancel()
+
+                Component.onCompleted: newGame.single = singleScreen
             }
         }
         Tab {
             title: "Multi Player"
 
             MultiPlayerScreen {
+                id: multiScreen
 
+                onStartGame: newGame.startGame()
+                onCancel: newGame.cancel()
+
+                Component.onCompleted: newGame.multi = multiScreen
             }
         }
     }
-
-
 }

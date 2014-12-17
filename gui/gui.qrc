@@ -12,5 +12,8 @@
         <file>Board.qml</file>
         <file>SinglePlayerScreen.qml</file>
         <file>MultiPlayerScreen.qml</file>
+        <file>GameScreen.qml</file>
+        <file>water.png</file>
+        <file>fired.png</file>
     </qresource>
 </RCC>

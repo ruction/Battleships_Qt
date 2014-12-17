@@ -47,5 +47,8 @@ QSet<quint16> Ship::getPositions() const {
  * Sets the ship position QSet
  */
 void Ship::setPositions(QSet<quint16> positions) {
-    this->positions = positions;
+    if (this->positions != positions) {
+        this->positions = positions;
+        emit positionsChanged();
+    }
 }
