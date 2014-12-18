@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import Battleships 1.0
+import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
     id: app
@@ -251,5 +252,17 @@ ApplicationWindow {
         id: gameScreen
         width: app.width
         height: app.height
+
+        MessageDialog {
+            id: destroyed_dialog
+            title: "YOU WON!"
+            text: "YOU WON!"
+            visible: false
+        }
+
+        onFinishedGame: {
+            destroyed_dialog.visible = true;
+            gameLogic.state = "HomeScreen"
+        }
     }
 }

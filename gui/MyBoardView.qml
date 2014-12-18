@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import QtQuick.Dialogs 1.2
 import Battleships 1.0
 
 Grid {
@@ -8,15 +7,6 @@ Grid {
     x: 5; y: 5
     rows: board.height; columns: board.width; spacing: 5
 
-    MessageDialog {
-        id: destroyed_dialog
-        title: "Ship destroyed!"
-        text: "coming soon..."
-        visible: false
-        onAccepted: {
-            Qt.quit()
-        }
-    }
 
     Repeater {
         model: board.width*board.height
@@ -80,6 +70,8 @@ Grid {
                     }
                     if (board.allShipsDestroyed()) {
                         console.log("FINISH");
+                        battleships.board.reset();
+                        gameScreen.finishedGame()
                     }
                 }
             }

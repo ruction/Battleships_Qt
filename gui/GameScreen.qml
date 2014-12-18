@@ -6,6 +6,8 @@ import QtQuick.Layouts 1.1
 BaseScreen {
     id: gameScreen
 
+    signal finishedGame
+
     NavigationBar {
         id: navigationBar
 
