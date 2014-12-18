@@ -17,6 +17,9 @@ Battleships::Battleships(QObject *parent)
     << new Ship(3, "submarine")
     << new Ship(3, "cruiser")
     << new Ship(2, "destroyer");
+
+    m_board.setShips(availableShips);
+    m_enemyBoard.setShips(availableShips);
 }
 
 Battleships::~Battleships()
@@ -58,6 +61,16 @@ quint16 Battleships::getShotsFired() const {
 QQmlListProperty<Ship> Battleships::getAvailableShips_Quick()
 {
     return QQmlListProperty<Ship> (this, 0, 0, availableShips_count, availableShips_at, 0);
+}
+
+Board *Battleships::board()
+{
+    return &m_board;
+}
+
+Board *Battleships::enemyBoard()
+{
+    return &m_enemyBoard;
 }
 
 int Battleships::availableShips_count(QQmlListProperty<Ship> *property)

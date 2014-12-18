@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSet>
+#include <QQmlListProperty>
 
 
 class Ship;
@@ -14,6 +15,7 @@ class Board : public QObject {
     Q_PROPERTY(quint8 height READ getHeight WRITE setHeight NOTIFY heightChanged)
     Q_PROPERTY(QSet<quint16> shipPositions READ getShipPositions NOTIFY shipPositionsChanged)
     Q_PROPERTY(QSet<quint16> shots READ getShots NOTIFY shotsChanged)
+    Q_PROPERTY(QQmlListProperty<Ship> ships READ getShips_Quick NOTIFY ShipsChanged)
 public:
     /*
      * Direction enum
@@ -32,20 +34,21 @@ public:
     void setHeight(const quint8& height);
     quint8 getHeight() const;
     Q_INVOKABLE bool place(Ship *ship, quint8 x, quint8 y, Direction d);
-    bool shoot(quint8 x, quint8 y);
+    Q_INVOKABLE bool shoot(quint8 x, quint8 y);
     void print();
     void addShipPositions(const QSet<quint16> shipPositions);
     QSet<quint16> getShipPositions() const;
     quint16 indexFromCoordinates(const quint8 x, const quint8 y);
     QPoint coordinatesFromIndex(const quint16);
     QSet<quint16> getShots() const;
-    bool shipDamaged(quint8 x, quint8 y);
-    bool shipDestroyed(Ship *ship);
-    bool allShipsDestroyed();
+    Q_INVOKABLE bool shipDamaged(quint8 x, quint8 y);
+    Q_INVOKABLE bool shipDestroyed(Ship *ship);
+    Q_INVOKABLE bool allShipsDestroyed();
     Q_INVOKABLE bool shipOnPosition(quint8 x, quint8 y);
     Q_INVOKABLE bool shotOnPosition(quint8 x, quint8 y);
     Q_INVOKABLE void reset();
     QList<Ship *> getShips() const;
+    QQmlListProperty<Ship> getShips_Quick();
     void setShips(const QList<Ship *> &value);
 private:
     QList<Ship*> ships;
@@ -53,11 +56,14 @@ private:
     quint8 width;                   // Board width
     QSet<quint16> shipPositions;    // Set with all indexes of every ship
     QSet<quint16> shots;            // Set with all shots
+    static int ships_count(QQmlListProperty<Ship> *property);
+    static Ship *ships_at(QQmlListProperty<Ship> *property, int index);
 signals:
     void widthChanged();
     void heightChanged();
     void shipPositionsChanged();
     void shotsChanged();
+    void ShipsChanged();
     void boardReset();
 
     void shipAdded(int x, int y);

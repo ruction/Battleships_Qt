@@ -11,7 +11,7 @@ ApplicationWindow {
 
     Battleships {
         id: battleships
-        playerName: "testhans"
+//        playerName: "testhans"
 //        shotsFired:
 //        availableShips:
     }
@@ -23,13 +23,13 @@ ApplicationWindow {
 //        positions:
     }
 
-    Board {
-        id: board
-//        width:
-//        height:
-//        shipPositions:
-//        shots:
-    }
+//    Board {
+//        id: board
+////        width:
+////        height:
+////        shipPositions:
+////        shots:
+//    }
 
 
     Item {
@@ -226,8 +226,8 @@ ApplicationWindow {
         onNext: {
             if (mode == "single") {
                 battleships.playerName = single.playerName
-                board.width = single.boardWidth
-                board.height = single.boardHeight
+                battleships.board.width = single.boardWidth
+                battleships.board.height = single.boardHeight
             } else {
 //                coming soon...
             }

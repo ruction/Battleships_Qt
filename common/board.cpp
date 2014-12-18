@@ -3,6 +3,7 @@
 #include <QTextStream>
 #include <QtGlobal>
 #include <QPoint>
+#include <QDebug>
 
 /*
  * Converts a overloaded string into a Direction enum value
@@ -77,6 +78,11 @@ quint8 Board::getHeight() const {
  * Place a ship
  */
 bool Board::place(Ship *ship, quint8 x, quint8 y, Direction d) {
+    if (!ships.contains(ship)) {
+        qDebug() << "Ship does not belong to this board";
+        return false;
+    }
+
     QSet<quint16> positions;            // placeholder QSet for calculated positions
 
     if(d == -1)
@@ -232,12 +238,14 @@ bool Board::shipDamaged(quint8 x, quint8 y)
 
 bool Board::allShipsDestroyed()
 {
-    for (int i = 0; i <  ships.size(); ++i) {
-        for (int j = 0; j < ships.at(i)->getPositions().size(); ++j) {
-            if (getShots().contains(ships.at(i)->getPositions())) {
-            } else {
-                return false;
-            }
+    qDebug() << "shots: " << shots;
+    qDebug() << "ships: " << ships;
+    foreach(const Ship *ship, ships)
+    {
+        QSet<quint16> shipPositions = ship->getPositions();
+        if (!shots.contains(shipPositions)) {
+            qDebug() << "ship_position: " << ship->getPositions();
+            return false;
         }
     }
     return true;
@@ -245,7 +253,7 @@ bool Board::allShipsDestroyed()
 
  bool Board::shipDestroyed(Ship* ship)
 {
-    if (getShots().contains(ship->getPositions())) {
+    if (shots.contains(ship->getPositions())) {
         return true;
     }
     return false;
@@ -283,8 +291,29 @@ QList<Ship *> Board::getShips() const
     return ships;
 }
 
+QQmlListProperty<Ship> Board::getShips_Quick()
+{
+    return QQmlListProperty<Ship> (this, 0, 0, ships_count, ships_at, 0);
+}
+
+
+int Board::ships_count(QQmlListProperty<Ship> *property)
+{
+    Board* This = qobject_cast<Board*>(property->object);
+    return This->ships.count();
+}
+
+Ship *Board::ships_at(QQmlListProperty<Ship> *property, int index)
+{
+    Board* This = qobject_cast<Board*>(property->object);
+    return This->ships.at(index);
+}
+
+
 void Board::setShips(const QList<Ship *> &value)
 {
-    ships = value;
+    foreach (Ship* ship, value) {
+        ships.append(new Ship(ship->getLength(), ship->getName()));
+    }
 }
 

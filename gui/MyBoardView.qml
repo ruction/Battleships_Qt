@@ -1,9 +1,22 @@
 import QtQuick 2.0
-
+import QtQuick.Dialogs 1.2
+import Battleships 1.0
 
 Grid {
+    property Board board
+
     x: 5; y: 5
     rows: board.height; columns: board.width; spacing: 5
+
+    MessageDialog {
+        id: destroyed_dialog
+        title: "Ship destroyed!"
+        text: "coming soon..."
+        visible: false
+        onAccepted: {
+            Qt.quit()
+        }
+    }
 
     Repeater {
         model: board.width*board.height
@@ -58,7 +71,16 @@ Grid {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    board.shoot(grid_element.column, grid_element.row);
                     grid_element.isShot = true
+                    if (board.shipDamaged(grid_element.column, grid_element.row)) {
+                        console.log("damage");
+                    } else {
+                        console.log("nothing");
+                    }
+                    if (board.allShipsDestroyed()) {
+                        console.log("FINISH");
+                    }
                 }
             }
         }

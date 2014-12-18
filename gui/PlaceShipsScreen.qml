@@ -25,18 +25,16 @@ BaseScreen {
                 text: "AUTOPLACE"
 
                 onClicked: {
-                    console.log("AUTOPLACE")
-
                     autoPlace.enabled = false
                     //outsource later!
-                    for (var i = 0; i < battleships.availableShips.length; i++) {
-                        var ship = battleships.availableShips[i];
-                        var x = Math.random() * board.width + 0;
-                        var y = Math.random() * board.height + 0;
+                    for (var i = 0; i < battleships.board.ships.length; i++) {
+                        var ship = battleships.board.ships[i];
+                        var x = Math.random() * battleships.board.width + 0;
+                        var y = Math.random() * battleships.board.height + 0;
                         var direction =  Math.random() * 3 + 0;
 
 //                        console.log(x + ", " + y + ", " + direction);
-                        if (board.place(ship, x, y, direction)) {}
+                        if (battleships.board.place(ship, x, y, direction)) {}
                         else {
                             --i;
                             continue;
@@ -45,13 +43,13 @@ BaseScreen {
                 }
 
                 Connections {
-                    target: board
+                    target: battleships.board
                     onBoardReset: autoPlace.enabled = true
                 }
             }
             Button {
                 text: "CLEAR"
-                onClicked: board.reset();
+                onClicked: battleships.board.reset();
             }
 
             Button {
@@ -62,6 +60,8 @@ BaseScreen {
 
         PlaceBoardView {
             id: board_place
+
+            board: battleships.board
         }
 
         Repeater {

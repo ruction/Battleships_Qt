@@ -9,14 +9,12 @@ ConsoleClient::ConsoleClient()
 }
 
 void ConsoleClient::run() {
-    QList<Ship*> ships = battleships.getAvailableShips();
-    Board* board = readInitialData();
-    board->setShips(ships);
-    placeShips(board, ships);
-    shootLoop(board, ships);
+    readInitialData();
+    placeShips(battleships.board(), battleships.board()->getShips());
+    shootLoop(battleships.board(), battleships.board()->getShips());
 }
 
-Board* ConsoleClient::readInitialData() {
+void ConsoleClient::readInitialData() {
     out << "#### WELCOME TO BATTLESHIP ####\n";
 
     // Read player name
@@ -49,10 +47,14 @@ Board* ConsoleClient::readInitialData() {
             break;
     }
 
+    battleships.board()->setWidth(width.toUInt());
+    battleships.board()->setHeight(height.toUInt());
+
+    battleships.enemyBoard()->setWidth(width.toUInt());
+    battleships.enemyBoard()->setHeight(height.toUInt());
+
     // Creates board with the input values
-    Board* board = new Board(width.toUInt(), height.toUInt());
-    board->print();
-    return board;
+    battleships.board()->print();
 }
 
 void ConsoleClient::placeShips(Board *board, QList<Ship*> ships) {

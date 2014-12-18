@@ -15,14 +15,17 @@ BaseScreen {
     ColumnLayout {
         anchors.centerIn: parent
 
-        EnemyBoardView {
-            id: board_enemy
+//        EnemyBoardView {
+//            id: board_enemy
 
-            scale: 0.93
-        }
+//            scale: 0.93
+//            board: battleships.enemyBoard
+//        }
 
         MyBoardView {
             id: board_my
+
+            board: battleships.board
 
             transform: Rotation {
                 origin.x: 100
@@ -35,11 +38,9 @@ BaseScreen {
                 angle: 50
             }
         }
-
         Text {
             text: battleships.playerName
         }
-
         Button {
             text: "QUIT GAME"
         }

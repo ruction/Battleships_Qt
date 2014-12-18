@@ -13,9 +13,9 @@ class ConsoleClient
 public:
     ConsoleClient();
     void run();
-    Board *readInitialData();
     void placeShips(Board *board, QList<Ship*> ships);
     void shootLoop(Board *board, QList<Ship*> ships);
+    void readInitialData();
 private:
     QTextStream in;
     QTextStream out;

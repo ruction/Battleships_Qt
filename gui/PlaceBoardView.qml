@@ -1,8 +1,11 @@
 import QtQuick 2.0
-
+import Battleships 1.0
 
 Grid {
     x: 5; y: 5
+
+    property Board board
+
     rows: board.height; columns: board.width; spacing: 5
 
     Repeater {
@@ -18,18 +21,13 @@ Grid {
             readonly property int column: model.index % board.width
 
             property bool isShip: board.shipOnPosition(row, column)
-            property bool isShot: board.shotOnPosition(row, column)
 
             Image {
                  id: img
                  anchors.fill: parent
                  source: {
-                     if (grid_element.isShot && grid_element.isShip) {
-                        return "fired_damage.png";
-                     } else if (grid_element.isShip) {
+                     if (grid_element.isShip) {
                          return "ship.png";
-                     } else if (grid_element.isShot) {
-                         return "fired.png";
                      } else {
                          return "water.png";
                      }
@@ -41,7 +39,6 @@ Grid {
 
                 onBoardReset: {
                     grid_element.isShip = false
-                    grid_element.isShot = false
                 }
                 onShipAdded: {
                     if (y === grid_element.row && x === grid_element.column) {
@@ -49,13 +46,6 @@ Grid {
                     }
                 }
             }
-
-//            MouseArea {
-//                anchors.fill: parent
-//                onClicked: {
-//                    grid_element.isShot = true
-//                }
-//            }
         }
     }
 }
