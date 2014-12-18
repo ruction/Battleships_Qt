@@ -9,7 +9,6 @@ BaseScreen {
 
     signal startGame
 
-
     NavigationBar {
         id: navigationBar
 
@@ -40,6 +39,8 @@ BaseScreen {
                             continue;
                         }
                     }
+
+                    startGame_btn.enabled = true;
                 }
 
                 Connections {
@@ -49,12 +50,20 @@ BaseScreen {
             }
             Button {
                 text: "CLEAR"
-                onClicked: battleships.board.reset();
+                onClicked: {
+                    startGame_btn.enabled = false;
+                    battleships.board.reset();
+                }
             }
 
             Button {
+                id: startGame_btn
                 text: "START GAME"
-                onClicked: startGame()
+                onClicked: {
+                    startGame_btn.enabled = false;
+                    startGame();
+                }
+                enabled: false
             }
         }
 

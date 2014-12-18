@@ -70,7 +70,6 @@ Grid {
                     }
                     if (board.allShipsDestroyed()) {
                         console.log("FINISH");
-                        battleships.board.reset();
                         gameScreen.finishedGame()
                     }
                 }

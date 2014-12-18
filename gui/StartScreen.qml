@@ -258,11 +258,14 @@ ApplicationWindow {
             title: "YOU WON!"
             text: "YOU WON!"
             visible: false
+            onAccepted: {
+                gameLogic.state = "HomeScreen"
+                battleships.board.reset();
+            }
         }
 
         onFinishedGame: {
             destroyed_dialog.visible = true;
-            gameLogic.state = "HomeScreen"
         }
     }
 }
