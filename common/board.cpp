@@ -225,6 +225,34 @@ QSet<quint16> Board::getShots() const {
     return shots;
 }
 
+bool Board::shipDamaged(quint8 x, quint8 y)
+{
+    return getShipPositions().contains(indexFromCoordinates(x,y));
+}
+
+bool Board::allShipsDestroyed()
+{
+    for (int i = 0; i <  ships.size(); ++i) {
+        for (int j = 0; j < ships.at(i)->getPositions().size(); ++j) {
+            if (getShots().contains(ships.at(i)->getPositions())) {
+            } else {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+ bool Board::shipDestroyed(Ship* ship)
+{
+    if (getShots().contains(ship->getPositions())) {
+        return true;
+    }
+    return false;
+}
+
+
+
 bool Board::shipOnPosition(quint8 x, quint8 y)
 {
     if(shipPositions.contains(indexFromCoordinates(x, y))) {
@@ -249,3 +277,14 @@ void Board::reset()
     shots.clear();
     emit boardReset();
 }
+
+QList<Ship *> Board::getShips() const
+{
+    return ships;
+}
+
+void Board::setShips(const QList<Ship *> &value)
+{
+    ships = value;
+}
+

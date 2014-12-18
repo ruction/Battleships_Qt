@@ -11,6 +11,7 @@ ConsoleClient::ConsoleClient()
 void ConsoleClient::run() {
     QList<Ship*> ships = battleships.getAvailableShips();
     Board* board = readInitialData();
+    board->setShips(ships);
     placeShips(board, ships);
     shootLoop(board, ships);
 }
@@ -171,35 +172,30 @@ void ConsoleClient::shootLoop(Board *board, QList<Ship*> ships)
                 break;
         }
 
-        quint8 counter = 0;         // Counter for destroyed ships
-
         // Checks if shoot is valid
         if (board->shoot(shotX.toUInt(), shotY.toUInt())) {
             battleships.inkrementShots();           // Inkrements shotsFired parameter
             // If shipPositions contains shot coordinates its a damage
-            if (board->getShipPositions().contains(board->indexFromCoordinates(shotX.toUInt(), shotY.toUInt()))) {
-                out << "Shot #" << battleships.getShotsFired() << " - DAMAGE!! \n" << flush;
 
-                // Checks if a complete ship is damaged/destroyed and inkrements counter
-                for (int i = 0; i < ships.size(); ++i) {
-                    if (board->getShots().contains(ships.at(i)->getPositions())) {
-                        out << ships.at(i)->getName() << " - DESTROYED!!!!\n" << flush;
-                        counter++;
-                    }
-                }
-                // If all ships are destroyed game loop ends
-                if (counter == ships.length()) {
-                    board->print();
-                    out << "All ships are destroyed! You WON! \n" << flush;
-                    break;
-                }
-                board->print();
-            }
-            // Otherwise it no damage
-            else {
+            if (board->shipDamaged(shotX.toUInt(), shotY.toUInt())) {
+                out << "Shot #" << battleships.getShotsFired() << " - DAMAGE!! \n" << flush;
+            } else {
                 out << "Shot #" << battleships.getShotsFired() << " - Nothing damaged...\n" << flush;
-                board->print();
             }
+
+            for (int i = 0; i < ships.size(); ++i) {
+                if (board->shipDestroyed(ships.at(i))) {
+                    out << ships.at(i)->getName() << " - DESTROYED!!!!\n" << flush;
+                }
+            }
+
+            if (board->allShipsDestroyed()) {
+                board->print();
+                out << "All ships are destroyed! You WON! \n" << flush;
+                break;
+            }
+
+            board->print();
         } else {
             out << "Wrong input! Try again.\n" << flush;
         }
