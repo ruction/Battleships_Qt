@@ -238,13 +238,10 @@ bool Board::shipDamaged(quint8 x, quint8 y)
 
 bool Board::allShipsDestroyed()
 {
-    qDebug() << "shots: " << shots;
-    qDebug() << "ships: " << ships;
     foreach(const Ship *ship, ships)
     {
         QSet<quint16> shipPositions = ship->getPositions();
         if (!shots.contains(shipPositions)) {
-            qDebug() << "ship_position: " << ship->getPositions();
             return false;
         }
     }
@@ -257,9 +254,18 @@ bool Board::allShipsDestroyed()
         return true;
     }
     return false;
-}
+ }
 
-
+ Ship* Board::shipFromCoordinates(quint8 x, quint8 y)
+ {
+     foreach (Ship* ship, ships)
+     {
+         QSet<quint16> shipPositions = ship->getPositions();
+         if (shipPositions.contains(indexFromCoordinates(x, y))) {
+            return ship;
+         }
+     }
+ }
 
 bool Board::shipOnPosition(quint8 x, quint8 y)
 {

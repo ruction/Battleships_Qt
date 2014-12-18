@@ -43,6 +43,7 @@ public:
     QSet<quint16> getShots() const;
     Q_INVOKABLE bool shipDamaged(quint8 x, quint8 y);
     Q_INVOKABLE bool shipDestroyed(Ship *ship);
+    Q_INVOKABLE Ship *shipFromCoordinates(quint8 x, quint8 y);
     Q_INVOKABLE bool allShipsDestroyed();
     Q_INVOKABLE bool shipOnPosition(quint8 x, quint8 y);
     Q_INVOKABLE bool shotOnPosition(quint8 x, quint8 y);

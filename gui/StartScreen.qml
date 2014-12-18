@@ -254,7 +254,7 @@ ApplicationWindow {
         height: app.height
 
         MessageDialog {
-            id: destroyed_dialog
+            id: won_dialog
             title: "YOU WON!"
             text: "YOU WON!"
             visible: false
@@ -265,7 +265,7 @@ ApplicationWindow {
         }
 
         onFinishedGame: {
-            destroyed_dialog.visible = true;
+            won_dialog.visible = true;
         }
     }
 }

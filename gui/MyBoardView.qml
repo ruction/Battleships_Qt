@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Battleships 1.0
+import QtQuick.Dialogs 1.2
 
 Grid {
     property Board board
@@ -7,6 +8,12 @@ Grid {
     x: 5; y: 5
     rows: board.height; columns: board.width; spacing: 5
 
+    MessageDialog {
+        id: destroyed_dialog
+        title: "YOU WON!"
+        text: ""
+        visible: false
+    }
 
     Repeater {
         model: board.width*board.height
@@ -64,14 +71,25 @@ Grid {
                     board.shoot(grid_element.column, grid_element.row);
                     grid_element.isShot = true
                     if (board.shipDamaged(grid_element.column, grid_element.row)) {
-                        console.log("damage");
+                        console.log("DAMAGE");
+
+                        var shipFromClick = board.shipFromCoordinates(grid_element.column, grid_element.row);
+                        if (board.shipDestroyed(shipFromClick)) {
+                            console.log("DESTROYED");
+
+                            console.log(shipFromClick.name);
+                            destroyed_dialog.text = "SHIP DESTROYED!! - " + shipFromClick.name + "(" + shipFromClick.length + ")";
+                            destroyed_dialog.visible = true;
+                        }
+                        if (board.allShipsDestroyed()) {
+                            console.log("FINISH");
+                            destroyed_dialog.visible = false;
+                            gameScreen.finishedGame()
+                        }
                     } else {
-                        console.log("nothing");
+                        console.log("NOTHING");
                     }
-                    if (board.allShipsDestroyed()) {
-                        console.log("FINISH");
-                        gameScreen.finishedGame()
-                    }
+
                 }
             }
         }
