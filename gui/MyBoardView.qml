@@ -35,13 +35,13 @@ Grid {
                  anchors.fill: parent
                  source: {
                      if (grid_element.isShot && grid_element.isShip) {
-                        return "fired_damage.png";
+                        return "images/fired_damage.png";
                      } else if (grid_element.isShip) {
-                         return "ship.png";
+                         return "images/ship.png";
                      } else if (grid_element.isShot) {
-                         return "fired.png";
+                         return "images/fired.png";
                      } else {
-                         return "water.png";
+                         return "images/water.png";
                      }
                   }
              }

@@ -19,6 +19,10 @@ BaseScreen {
         anchors.centerIn: parent
 
         RowLayout {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+            }
+
             Button {
                 id: autoPlace
                 text: "AUTOPLACE"
@@ -83,18 +87,56 @@ BaseScreen {
                 width: ship_element.width
                 height: ship_element.height
 
-                RowLayout {
+                Column {
                     id: ship_element
 
                     Text {
                         id: ship_meta
                         text: model.name + " : " + model.length
                     }
-                    Repeater {
-                        model: rootDel.length
+                    Item {
+                        id: root
 
-                        delegate: Image {
-                            source: "ship.png"
+                        width: rootDel.length*40; height: 40
+
+                        MouseArea {
+                            id: mouseArea
+
+                            onDoubleClicked: tile.rotation += 90
+
+                            width: rootDel.length*40; height: 40
+                            anchors.centerIn: root
+
+                            drag.target: tile
+
+                            onReleased: parent = tile.Drag.target !== null ? tile.Drag.target : root
+
+                            Rectangle {
+                                id: tile
+                                width: rootDel.length*40
+                                height: 40
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
+
+                                Row {
+                                    Repeater {
+                                        model: rootDel.length
+                                        delegate: Image {
+                                            source: "images/ship.png"
+                                        }
+                                    }
+                                }
+
+                                Drag.active: mouseArea.drag.active
+                                Drag.hotSpot.x: 20
+                                Drag.hotSpot.y: 20
+                                states: State {
+                                    when: mouseArea.drag.active
+                                    ParentChange { target: tile; parent: root }
+                                    AnchorChanges { target: tile; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined }
+                                }
+
+                            }
                         }
                     }
                 }

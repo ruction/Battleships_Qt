@@ -4,7 +4,7 @@
         <file>HomeScreen.qml</file>
         <file>BaseScreen.qml</file>
         <file>SplashScreen.qml</file>
-        <file>animation.gif</file>
+        <file>images/animation.gif</file>
         <file>SettingsScreen.qml</file>
         <file>NewGameScreen.qml</file>
         <file>NavigationBar.qml</file>
@@ -13,12 +13,13 @@
         <file>SinglePlayerScreen.qml</file>
         <file>MultiPlayerScreen.qml</file>
         <file>PlaceShipsScreen.qml</file>
-        <file>water.png</file>
-        <file>fired.png</file>
+        <file>images/water.png</file>
+        <file>images/fired.png</file>
         <file>GameScreen.qml</file>
-        <file>ship.png</file>
-        <file>fired_damage.png</file>
+        <file>images/ship.png</file>
+        <file>images/fired_damage.png</file>
         <file>PlaceBoardView.qml</file>
         <file>EnemyBoardView.qml</file>
+        <file>images/hover.png</file>
     </qresource>
 </RCC>

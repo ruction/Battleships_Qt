@@ -19,7 +19,7 @@ Grid {
             Image {
                  id: img
                  anchors.fill: parent
-                 source: "water.png"
+                 source: "images/water.png"
             }
         }
     }

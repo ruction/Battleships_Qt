@@ -6,7 +6,6 @@ BaseScreen {
     id: root
 
     signal settings
-    signal exit
     signal new_game
 
     ColumnLayout {
@@ -30,7 +29,7 @@ BaseScreen {
             id: exit_btn
             text: "EXIT"
 
-            onClicked: root.exit()
+            onClicked: Qt.quit();
         }
     }
 }

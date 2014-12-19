@@ -6,46 +6,68 @@ Grid {
 
     property Board board
 
-    rows: board.height; columns: board.width; spacing: 5
+    rows: board.height; columns: board.width;
 
-    Repeater {
-        model: board.width*board.height
+        Repeater {
+            model: board.width*board.height
 
-        delegate: Rectangle {
-            id: grid_element
+            DropArea {
+                id: dragTarget
 
-            width: 40
-            height: 40
+                property alias dropProxy: dragTarget
 
-            readonly property int row: model.index / board.width
-            readonly property int column: model.index % board.width
+                width: 40; height: 40
 
-            property bool isShip: board.shipOnPosition(row, column)
+                 Rectangle {
+                    id: grid_element
 
-            Image {
-                 id: img
-                 anchors.fill: parent
-                 source: {
-                     if (grid_element.isShip) {
-                         return "ship.png";
-                     } else {
-                         return "water.png";
+                    anchors.fill: parent
+
+                    states: [
+                        State {
+                            when: dragTarget.containsDrag
+                            PropertyChanges {
+                                target: img
+                                source: {
+                                    return "images/hover.png"
+                                }
+                            }
+                        }
+                    ]
+
+                    width: 40
+                    height: 40
+
+                    readonly property int row: model.index / board.width
+                    readonly property int column: model.index % board.width
+
+                    property bool isShip: board.shipOnPosition(row, column)
+
+                    Image {
+                         id: img
+                         anchors.fill: parent
+                         source: {
+                             if (grid_element.isShip) {
+                                 return "images/ship.png";
+                             } else {
+                                 return "images/water.png";
+                             }
+                          }
                      }
-                  }
-             }
 
-            Connections {
-                target: board
+                    Connections {
+                        target: board
 
-                onBoardReset: {
-                    grid_element.isShip = false
-                }
-                onShipAdded: {
-                    if (y === grid_element.row && x === grid_element.column) {
-                        grid_element.isShip = true;
+                        onBoardReset: {
+                            grid_element.isShip = false
+                        }
+                        onShipAdded: {
+                            if (y === grid_element.row && x === grid_element.column) {
+                                grid_element.isShip = true;
+                            }
+                        }
                     }
                 }
-            }
         }
     }
 }

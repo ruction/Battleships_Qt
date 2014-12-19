@@ -20,7 +20,7 @@ BaseScreen {
              AnimatedImage {
                  id: animation
 
-                 source: "animation.gif"
+                 source: "images/animation.gif"
              }
 
              Rectangle {
