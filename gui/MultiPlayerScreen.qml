@@ -9,15 +9,20 @@ ColumnLayout {
     signal next
     signal cancel
 
-    Button {
-        id: start_btn
-        text: "start game"
-        onClicked: multiPlayer.next()
-    }
-    Button {
-        id: cancel_btn
-        text: "cancel"
+    RowLayout {
+        anchors {
+            horizontalCenter: multiPlayer.horizontalCenter
+        }
+        Button {
+            id: start_btn
+            text: "start game"
+//            onClicked: multiPlayer.next()
+        }
+        Button {
+            id: cancel_btn
+            text: "cancel"
 
-        onClicked: multiPlayer.cancel()
+            onClicked: multiPlayer.cancel()
+        }
     }
 }

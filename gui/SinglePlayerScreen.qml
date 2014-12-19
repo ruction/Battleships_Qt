@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.1
 
 ColumnLayout {
     id: singlePlayer
-    anchors.centerIn: parent
 
     signal next
     signal cancel
@@ -14,46 +13,74 @@ ColumnLayout {
     property int boardWidth: boardWidth_slider.value
     property int boardHeight: boardHeight_slider.value
 
+    Text {
+        text: "What is your name?"
+        anchors {
+            horizontalCenter: singlePlayer.horizontalCenter
+        }
+    }
     TextField {
         id: playerName_input
-        placeholderText: "testhans"
+        anchors {
+            horizontalCenter: singlePlayer.horizontalCenter
+        }
+
+        placeholderText: "name"
     }
     Text {
-        text: boardWidth_slider.value
+        text: "Board width: " + boardWidth_slider.value
+        anchors {
+            horizontalCenter: singlePlayer.horizontalCenter
+        }
     }
     Slider {
         id: boardWidth_slider
 
+        anchors {
+            horizontalCenter: singlePlayer.horizontalCenter
+        }
+
         maximumValue: 10.0
-        minimumValue: 5.0
+        minimumValue: 7.0
         tickmarksEnabled: true
         updateValueWhileDragging: true
         stepSize: 1.0
     }
     Text {
-        text: boardHeight_slider.value
+        text: "Board height: " + boardHeight_slider.value
+        anchors {
+            horizontalCenter: singlePlayer.horizontalCenter
+        }
     }
     Slider {
         id: boardHeight_slider
 
+        anchors {
+            horizontalCenter: singlePlayer.horizontalCenter
+        }
         maximumValue: 10.0
-        minimumValue: 5.0
+        minimumValue: 7.0
         tickmarksEnabled: true
         updateValueWhileDragging: true
         stepSize: 1.0
     }
-    Button {
-        id: start_btn
-        text: "start game"
-
-        onClicked: {
-            singlePlayer.next()
+    RowLayout {
+        anchors {
+            horizontalCenter: singlePlayer.horizontalCenter
         }
-    }
-    Button {
-        id: cancel_btn
-        text: "cancel"
+        Button {
+            id: start_btn
+            text: "start game"
 
-        onClicked: singlePlayer.cancel()
+            onClicked: {
+                singlePlayer.next()
+            }
+        }
+        Button {
+            id: cancel_btn
+            text: "cancel"
+
+            onClicked: singlePlayer.cancel()
+        }
     }
 }

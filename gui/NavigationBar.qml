@@ -15,6 +15,10 @@ Rectangle {
 
     Text {
         text: title
+        anchors {
+            horizontalCenter: root.horizontalCenter
+            verticalCenter: root.verticalCenter
+        }
     }
 
     color: "grey"

@@ -6,7 +6,7 @@ Grid {
     property Board board
 
     x: 5; y: 5
-    rows: board.height; columns: board.width; spacing: 5
+    rows: board.height; columns: board.width;
 
     MessageDialog {
         id: destroyed_dialog
@@ -70,6 +70,7 @@ Grid {
                 onClicked: {
                     board.shoot(grid_element.column, grid_element.row);
                     grid_element.isShot = true
+                    battleships.inkrementShots();
                     if (board.shipDamaged(grid_element.column, grid_element.row)) {
                         console.log("DAMAGE");
 

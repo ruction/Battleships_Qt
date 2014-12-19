@@ -256,12 +256,27 @@ ApplicationWindow {
         MessageDialog {
             id: won_dialog
             title: "YOU WON!"
-            text: "YOU WON!"
+            text: battleships.playerName + " you won!! <br> Shots: " + battleships.shotsFired
             visible: false
             onAccepted: {
                 gameLogic.state = "HomeScreen"
                 battleships.board.reset();
             }
+        }
+
+        MessageDialog {
+            id: quitGame_dialog
+            title: "Are you sure?"
+            text: "Are you sure?"
+            visible: false
+            onAccepted: {
+                gameLogic.state = "HomeScreen"
+                battleships.board.reset();
+            }
+        }
+
+        onQuitGame: {
+            quitGame_dialog.visible = true;
         }
 
         onFinishedGame: {

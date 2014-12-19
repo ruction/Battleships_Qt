@@ -20,7 +20,7 @@ public:
     ~Battleships();
     void setPlayerName(const QString& playerName);
     QString getPlayerName() const;
-    void inkrementShots();
+    Q_INVOKABLE void inkrementShots();
     quint16 getShotsFired() const;
     QList<Ship*> getAvailableShips() const;
     QQmlListProperty<Ship> getAvailableShips_Quick();

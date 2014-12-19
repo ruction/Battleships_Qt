@@ -16,11 +16,22 @@ BaseScreen {
     ColumnLayout {
         anchors.centerIn: parent
 
-        Button {
-            text: "cancel"
-            onClicked: {
-                console.log(battleships.playerName)
-                root.cancel()}
+        RowLayout {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+            }
+            Button {
+                text: "save"
+            }
+            Button {
+                text: "cancel"
+
+                onClicked: {
+                    root.cancel()
+                }
+            }
         }
+
+
     }
 }

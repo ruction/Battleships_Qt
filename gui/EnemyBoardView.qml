@@ -3,7 +3,7 @@ import Battleships 1.0
 
 Grid {
     x: 5; y: 5
-    rows:  board.height; columns:  board.width; spacing: 5
+    rows:  board.height; columns:  board.width;
 
     property Board board
 

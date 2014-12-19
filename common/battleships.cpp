@@ -1,4 +1,5 @@
 #include "battleships.h"
+#include <QtDebug>
 
 /*
  * Default constructor with initial values for playerName
@@ -48,7 +49,9 @@ QString Battleships::getPlayerName() const {
  * Inkrements shotsFired parameter on function call
  */
 void Battleships::inkrementShots() {
+    qDebug() << "shotsFired" << shotsFired;
     shotsFired++;
+    emit shotsFiredChanged();
 }
 
 /*

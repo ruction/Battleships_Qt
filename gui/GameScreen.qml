@@ -7,6 +7,7 @@ BaseScreen {
     id: gameScreen
 
     signal finishedGame
+    signal quitGame
 
     NavigationBar {
         id: navigationBar
@@ -40,11 +41,12 @@ BaseScreen {
                 angle: 50
             }
         }
-        Text {
-            text: battleships.playerName
-        }
         Button {
             text: "QUIT GAME"
+            onClicked: quitGame()
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+            }
         }
     }
 }
