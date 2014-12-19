@@ -34,18 +34,25 @@ quint8 Board::randomValue(const quint8 max) {
 
 
 /*
- * Constructor with board initialisation of
- * width and height
+ *
  */
 Board::Board(QObject *parent)
     :QObject(parent)
 {}
 
+
+/*
+ * Constructor with board initialisation of
+ * width and height
+ */
 Board::Board(quint8 width, quint8 height)
     :height(height), width(width)
 {
 }
 
+/*
+ * Set board width
+ */
 void Board::setWidth(const quint8& width) {
     if (this->width != width) {
         this->width = width;
@@ -60,6 +67,9 @@ quint8 Board::getWidth() const {
     return width;
 }
 
+/*
+ * Returns board height
+ */
 void Board::setHeight(const quint8& height) {
     if (this->height != height) {
         this->height = height;
@@ -85,8 +95,6 @@ bool Board::place(Ship *ship, quint8 x, quint8 y, Direction d) {
 
     QSet<quint16> positions;            // placeholder QSet for calculated positions
 
-    if(d == -1)
-        return false;
     // Loop for the overloaded ship length
     for (quint8 i = 0; i < ship->getLength(); ++i) {
         // Calculates the index of the ship inital coordinates
@@ -219,6 +227,9 @@ quint16 Board::indexFromCoordinates(const quint8 x, const quint8 y) {
         return y*width+x;
 }
 
+/*
+ * Returns coordinates calculated from index
+ */
 QPoint Board::coordinatesFromIndex(const quint16 index)
 {
     return QPoint(index % width, index / width);
@@ -231,11 +242,19 @@ QSet<quint16> Board::getShots() const {
     return shots;
 }
 
+
+/*
+ * Returns true if there is a ship on position (x,y)
+ */
 bool Board::shipDamaged(quint8 x, quint8 y)
 {
     return getShipPositions().contains(indexFromCoordinates(x,y));
 }
 
+
+/*
+ * Returns true if all ships are destroyed
+ */
 bool Board::allShipsDestroyed()
 {
     foreach(const Ship *ship, ships)
@@ -248,6 +267,9 @@ bool Board::allShipsDestroyed()
     return true;
 }
 
+/*
+ * Returns true if a given ship is destroyed
+ */
  bool Board::shipDestroyed(Ship* ship)
 {
     if (shots.contains(ship->getPositions())) {
@@ -256,6 +278,9 @@ bool Board::allShipsDestroyed()
     return false;
  }
 
+ /*
+  * Returns the damaged ship
+  */
  Ship* Board::shipFromCoordinates(quint8 x, quint8 y)
  {
      foreach (Ship* ship, ships)
@@ -267,6 +292,9 @@ bool Board::allShipsDestroyed()
      }
  }
 
+ /*
+  * Returns true if there is a ship on the position(x,y)
+  */
 bool Board::shipOnPosition(quint8 x, quint8 y)
 {
     if(shipPositions.contains(indexFromCoordinates(x, y))) {
@@ -276,6 +304,9 @@ bool Board::shipOnPosition(quint8 x, quint8 y)
     }
 }
 
+/*
+ * Returns true if there is a shot on the position(x,y)
+ */
 bool Board::shotOnPosition(quint8 x, quint8 y)
 {
     if(shots.contains(indexFromCoordinates(x, y))) {
@@ -285,6 +316,9 @@ bool Board::shotOnPosition(quint8 x, quint8 y)
     }
 }
 
+/*
+ * Clears all list to reset the board
+ */
 void Board::reset()
 {
     shipPositions.clear();
@@ -292,16 +326,22 @@ void Board::reset()
     emit boardReset();
 }
 
+
+/*
+ * Returns ships QList
+ */
 QList<Ship *> Board::getShips() const
 {
     return ships;
 }
 
+/*
+ * Makes the ships QList available for the gui (qml)
+ */
 QQmlListProperty<Ship> Board::getShips_Quick()
 {
     return QQmlListProperty<Ship> (this, 0, 0, ships_count, ships_at, 0);
 }
-
 
 int Board::ships_count(QQmlListProperty<Ship> *property)
 {
@@ -316,6 +356,9 @@ Ship *Board::ships_at(QQmlListProperty<Ship> *property, int index)
 }
 
 
+/*
+ * Sets the ships list
+ */
 void Board::setShips(const QList<Ship *> &value)
 {
     foreach (Ship* ship, value) {

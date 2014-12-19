@@ -23,6 +23,9 @@ Battleships::Battleships(QObject *parent)
     m_enemyBoard.setShips(availableShips);
 }
 
+/*
+ * Destructor to clear the availableShips
+ */
 Battleships::~Battleships()
 {
     qDeleteAll(availableShips);
@@ -61,19 +64,12 @@ quint16 Battleships::getShotsFired() const {
     return shotsFired;
 }
 
+/*
+ * Makes the getAvailableShips QList available for the gui (qml)
+ */
 QQmlListProperty<Ship> Battleships::getAvailableShips_Quick()
 {
     return QQmlListProperty<Ship> (this, 0, 0, availableShips_count, availableShips_at, 0);
-}
-
-Board *Battleships::board()
-{
-    return &m_board;
-}
-
-Board *Battleships::enemyBoard()
-{
-    return &m_enemyBoard;
 }
 
 int Battleships::availableShips_count(QQmlListProperty<Ship> *property)
@@ -86,6 +82,22 @@ Ship *Battleships::availableShips_at(QQmlListProperty<Ship> *property, int index
 {
     Battleships* This = qobject_cast<Battleships*>(property->object);
     return This->availableShips.at(index);
+}
+
+/*
+ * Getter for board
+ */
+Board *Battleships::board()
+{
+    return &m_board;
+}
+
+/*
+ * Getter for enemyBoard
+ */
+Board *Battleships::enemyBoard()
+{
+    return &m_enemyBoard;
 }
 
 /*

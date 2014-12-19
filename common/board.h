@@ -52,7 +52,7 @@ public:
     QQmlListProperty<Ship> getShips_Quick();
     void setShips(const QList<Ship *> &value);
 private:
-    QList<Ship*> ships;
+    QList<Ship*> ships;             // List of ships
     quint8 height;                  // Board height
     quint8 width;                   // Board width
     QSet<quint16> shipPositions;    // Set with all indexes of every ship
