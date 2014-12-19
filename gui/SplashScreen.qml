@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.1
 
 BaseScreen {
     id: root
+    color: "white"
 
     signal skip
 

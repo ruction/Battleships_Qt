@@ -6,32 +6,17 @@ import QtQuick.Dialogs 1.2
 ApplicationWindow {
     id: app
 
-    width: 500
+    width: 600
     height: 900
     visible: true
 
     Battleships {
         id: battleships
-//        playerName: "testhans"
-//        shotsFired:
-//        availableShips:
     }
 
     Ship {
         id: ship
-//        length:
-//        name:
-//        positions:
     }
-
-//    Board {
-//        id: board
-////        width:
-////        height:
-////        shipPositions:
-////        shots:
-//    }
-
 
     Item {
         id: gameLogic

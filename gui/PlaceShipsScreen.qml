@@ -89,6 +89,10 @@ BaseScreen {
             board: battleships.board
         }
 
+        Item {
+            height: 10
+        }
+
         Repeater {
             id: ships_list
             model: battleships.availableShips
@@ -99,6 +103,7 @@ BaseScreen {
 
                 width: ship_element.width
                 height: ship_element.height
+                color: "#c0d3d3"
 
                 Column {
                     id: ship_element
