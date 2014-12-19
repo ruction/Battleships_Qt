@@ -16,7 +16,13 @@ BaseScreen {
     }
 
     ColumnLayout {
-        anchors.centerIn: parent
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+        }
+
+        Item {
+            height: 80
+        }
 
         RowLayout {
             anchors {
@@ -28,6 +34,9 @@ BaseScreen {
                 text: "AUTOPLACE"
 
                 onClicked: {
+                    for (var i=0;i<ships_list.count;i++) {
+                        ships_list.itemAt(i).visible = false
+                    }
                     autoPlace.enabled = false
                     //outsource later!
                     for (var i = 0; i < battleships.board.ships.length; i++) {
@@ -55,6 +64,9 @@ BaseScreen {
             Button {
                 text: "CLEAR"
                 onClicked: {
+                    for (var i=0;i<ships_list.count;i++) {
+                        ships_list.itemAt(i).visible = true
+                    }
                     startGame_btn.enabled = false;
                     battleships.board.reset();
                 }
@@ -78,6 +90,7 @@ BaseScreen {
         }
 
         Repeater {
+            id: ships_list
             model: battleships.availableShips
 
             delegate: Rectangle {

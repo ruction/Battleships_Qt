@@ -11,10 +11,23 @@ BaseScreen {
         anchors.centerIn: parent
 
         Text {
-            text: "Battleships"
+            text: "<b>Battleships<b>"
+            font.family: "Helvetica [Cronyx]"
+            font.pixelSize: 40
+            color: "blue"
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+            }
+        }
+
+        Item {
+            height: 50
         }
 
         Rectangle {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+            }
              width: animation.width; height: animation.height + 8
 
              AnimatedImage {
@@ -33,7 +46,14 @@ BaseScreen {
              }
          }
 
+        Item {
+            height: 200
+        }
+
         Button {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+            }
             id: continue_btn
             text: "continue"
 

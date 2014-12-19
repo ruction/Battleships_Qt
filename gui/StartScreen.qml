@@ -7,7 +7,7 @@ ApplicationWindow {
     id: app
 
     width: 500
-    height: 800
+    height: 900
     visible: true
 
     Battleships {
