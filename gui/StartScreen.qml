@@ -63,7 +63,15 @@ ApplicationWindow {
                     target: gameScreen
                     visible: true
                 }
+            },
+            State {
+                name: "WaitForPlayerScreen"
+                PropertyChanges {
+                    target: waitForPlayerScreen
+                    visible: true
+                }
             }
+
         ]
 
         transitions: [
@@ -174,6 +182,42 @@ ApplicationWindow {
                     easing.type: Easing.Linear
                     duration: 400
                 }
+            },
+            GameTransition {
+                id: gameTransition7
+
+                oldItem: newGameScreen
+                newItem: waitForPlayerScreen
+
+                from: "NewGameScreen"
+                to: "WaitForPlayerScreen"
+
+                NumberAnimation {
+                    target: gameTransition7.newItem
+                    properties: "x"
+                    from: app.width
+                    to: 0
+                    easing.type: Easing.Linear
+                    duration: 400
+                }
+            },
+            GameTransition {
+                id: gameTransition8
+
+                oldItem: waitForPlayerScreen
+                newItem: newGameScreen
+
+                from: "WaitForPlayerScreen"
+                to: "NewGameScreen"
+
+                NumberAnimation {
+                    target: gameTransition8.oldItem
+                    properties: "x"
+                    from: 0
+                    to: app.width
+                    easing.type: Easing.Linear
+                    duration: 400
+                }
             }
         ]
     }
@@ -211,15 +255,20 @@ ApplicationWindow {
         onCancel: gameLogic.state = "HomeScreen"
         onNext: {
             if (mode == "single") {
-                battleships.playerName = single.playerName
-                battleships.board.width = single.boardWidth
-                battleships.board.height = single.boardHeight
+                battleships.playerName = single.playerName;
+                battleships.board.width = single.boardWidth;
+                battleships.board.height = single.boardHeight;
+
+                gameLogic.state = "PlaceShipsScreen"
             } else {
-//                coming soon...
+                if (kind == "server") {
+                    battleships.playerName = multi.playerName;
+                    gameLogic.state = "WaitForPlayerScreen";
+                } else {
+//                    battleships.playerName = multi.playerName;
+                    gameLogic.state = "PlaceShipsScreen"
+                }
             }
-
-            gameLogic.state = "PlaceShipsScreen"
-
         }
     }
 
@@ -231,6 +280,14 @@ ApplicationWindow {
         onStartGame: {
             gameLogic.state = "GameScreen"
         }
+    }
+
+    WaitForPlayerScreen {
+        id: waitForPlayerScreen
+        width: app.width
+        height: app.height
+
+        onCancel: gameLogic.state = "NewGameScreen"
     }
 
     GameScreen {

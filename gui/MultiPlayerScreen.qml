@@ -8,6 +8,12 @@ ColumnLayout {
 
     signal next
     signal cancel
+    signal server
+    signal client
+
+    property string playerName: playerName_input.text
+    property int boardWidth: boardWidth_slider.value
+    property int boardHeight: boardHeight_slider.value
 
 
     RowLayout {
@@ -30,6 +36,7 @@ ColumnLayout {
                     boardWidth_txt.visible = false;
                     boardHeight_slider.visible = false;
                     boardHeight_txt.visible = false;
+                    multiPlayer.server();
                 }
             }
             RadioButton {
@@ -42,6 +49,7 @@ ColumnLayout {
                     boardWidth_txt.visible = true;
                     boardHeight_slider.visible = true;
                     boardHeight_txt.visible = true;
+                    multiPlayer.client();
                 }
             }
         }
@@ -150,7 +158,7 @@ ColumnLayout {
         Button {
             id: start_btn
             text: "start game"
-//            onClicked: multiPlayer.next()
+            onClicked: multiPlayer.next()
         }
         Button {
             id: cancel_btn

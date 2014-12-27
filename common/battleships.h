@@ -26,7 +26,6 @@ public:
     QQmlListProperty<Ship> getAvailableShips_Quick();
     Board *board();
     Board *enemyBoard();
-
 private:
     QString playerName;             // Player name
     quint16 shotsFired;             // Counter for fired shots
@@ -39,7 +38,6 @@ signals:
     void availableShipsChanged();
     void boardChanged();
     void enemyBoardChanged();
-
 protected:
     Board m_board;
     Board m_enemyBoard;

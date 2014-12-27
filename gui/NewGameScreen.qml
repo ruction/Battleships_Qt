@@ -10,8 +10,10 @@ BaseScreen {
 
     readonly property string mode: tabView.currentIndex === 0 ? "single" : "multi"
 
+    property string kind: "server"
     property SinglePlayerScreen single
     property MultiPlayerScreen multi
+
 
     NavigationBar {
         id: navigationBar
@@ -45,6 +47,8 @@ BaseScreen {
 
                 onNext: newGame.next()
                 onCancel: newGame.cancel()
+                onServer: kind = "server"
+                onClient: kind = "client"
 
                 Component.onCompleted: newGame.multi = multiScreen
             }

@@ -21,5 +21,6 @@
         <file>PlaceBoardView.qml</file>
         <file>EnemyBoardView.qml</file>
         <file>images/hover.png</file>
+        <file>WaitForPlayerScreen.qml</file>
     </qresource>
 </RCC>
