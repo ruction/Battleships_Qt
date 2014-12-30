@@ -12,7 +12,9 @@ class Client: public QObject
 public:
     Client(QObject* parent = 0);
     ~Client();
-    void start(QString address, quint16 port);
+    Q_INVOKABLE void start(QString address, quint16 port);
+    Q_INVOKABLE void writeMessage();
+    void readData();
 public slots:
     void startTransfer();
 private:

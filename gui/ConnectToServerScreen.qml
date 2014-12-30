@@ -3,37 +3,34 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 BaseScreen {
-    id: waitForPlayer
+    id: connectToServer
 
     signal cancel
 
     NavigationBar {
         id: navigationBar
 
-        title: "SERVER - WAIT FOR PLAYER"
+        title: "CLIENT - CONNECT TO SERVER"
     }
 
     ColumnLayout {
         anchors {
             top: navigationBar.bottom
-            bottom: waitForPlayer.bottom
-            horizontalCenter: waitForPlayer.horizontalCenter
+            bottom: connectToServer.bottom
+            horizontalCenter: connectToServer.horizontalCenter
         }
 
         Text {
-            text: "SERVER: " + battleships.playerName
+            text: "CLIENT: " + battleships.playerName
         }
         Text {
             text: "PORT: "
-        }
-        Text {
-            text: "MESSAGE: " + server.message
         }
         Button {
             id: cancel_btn
             text: "cancel"
 
-            onClicked: waitForPlayer.cancel()
+            onClicked: connectToServer.cancel()
         }
     }
 }

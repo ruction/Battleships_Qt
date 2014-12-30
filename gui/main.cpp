@@ -15,6 +15,8 @@ int main(int argc, char* argv[])
     qmlRegisterType<Battleships>("Battleships", 1, 0, "Battleships");
     qmlRegisterType<Board>("Battleships", 1, 0, "Board");
     qmlRegisterType<Ship>("Battleships", 1, 0, "Ship");
+    qmlRegisterType<Server>("Battleships", 1, 0, "Server");
+    qmlRegisterType<Client>("Battleships", 1, 0, "Client");
     QQmlApplicationEngine engine(QUrl("qrc:/StartScreen.qml"));
 
 //    Server server;

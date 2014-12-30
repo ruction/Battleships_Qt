@@ -22,5 +22,6 @@
         <file>EnemyBoardView.qml</file>
         <file>images/hover.png</file>
         <file>WaitForPlayerScreen.qml</file>
+        <file>ConnectToServerScreen.qml</file>
     </qresource>
 </RCC>
