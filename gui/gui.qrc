@@ -9,7 +9,7 @@
         <file>NewGameScreen.qml</file>
         <file>NavigationBar.qml</file>
         <file>GameTransition.qml</file>
-        <file>MyBoardView.qml</file>
+        <file>MyBoardViewMulti.qml</file>
         <file>SinglePlayerScreen.qml</file>
         <file>MultiPlayerScreen.qml</file>
         <file>PlaceShipsScreen.qml</file>
@@ -24,5 +24,6 @@
         <file>WaitForPlayerScreen.qml</file>
         <file>ConnectToServerScreen.qml</file>
         <file>GameScreenMulti.qml</file>
+        <file>MyBoardViewSingle.qml</file>
     </qresource>
 </RCC>

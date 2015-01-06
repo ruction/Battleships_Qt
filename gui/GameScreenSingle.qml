@@ -18,7 +18,7 @@ BaseScreen {
     ColumnLayout {
         anchors.centerIn: parent
 
-        MyBoardView {
+        MyBoardViewSingle {
             id: board_my
 
             board: battleships.board

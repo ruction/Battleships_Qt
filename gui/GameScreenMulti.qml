@@ -25,7 +25,7 @@ BaseScreen {
             board: battleships.enemyBoard
         }
 
-        MyBoardView {
+        MyBoardViewMulti {
             id: board_my
 
             board: battleships.board
