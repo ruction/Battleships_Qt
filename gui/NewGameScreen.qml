@@ -47,8 +47,8 @@ BaseScreen {
 
                 onNext: newGame.next()
                 onCancel: newGame.cancel()
-                onServer: kind = "server"
-                onClient: kind = "client"
+                onServer_signal: kind = "server"
+                onClient_signal: kind = "client"
 
                 Component.onCompleted: newGame.multi = multiScreen
             }

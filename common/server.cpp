@@ -6,6 +6,10 @@ using namespace std;
 
 Server::Server(QObject* parent): QObject(parent)
 {
+    foreach (const QHostAddress &address, QNetworkInterface::allAddresses()) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol && address != QHostAddress(QHostAddress::LocalHost))
+            this->setIp(address.toString());
+    }
     qDebug() << "Server initialized." << flush;
     connect(&server, SIGNAL(newConnection()),
     this, SLOT(acceptConnection()));
@@ -20,6 +24,16 @@ Server::~Server()
 QString Server::getMessage()
 {
     return this->message;
+}
+
+QString Server::getIp()
+{
+    return this->ip;
+}
+
+void Server::setIp(QString ip)
+{
+    this->ip = ip;
 }
 
 void Server::setMessage(QString message)
@@ -42,7 +56,7 @@ void Server::startRead()
     cout << "server received: " << buffer << flush << endl;
     this->message = buffer;
     emit messageChanged();
-//    client->close();
+    //    client->close();
 }
 
 void Server::writeMessage()
