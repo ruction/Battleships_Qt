@@ -9,27 +9,19 @@
 class Server: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString message READ getMessage WRITE setMessage NOTIFY messageChanged)
     Q_PROPERTY(QString ip READ getIp WRITE setIp)
 public:
     Server(QObject * parent = 0);
-    Q_INVOKABLE void writeMessage();
-    QString getMessage();
-    QString getIp();
+    Q_INVOKABLE void start(quint16 port);
+    Q_INVOKABLE void close();
     void setIp(QString ip);
-    void setMessage(QString message);
-    ~Server();
-public slots:
+    QString getIp();
+private slots:
     void acceptConnection();
-    void startRead();
 private:
     QTcpServer server;
-    QTcpSocket* client;
-    QString message;
+    QTcpSocket* socket;
     QString ip;
-signals:
-    void messageChanged();
-
 };
 
 #endif // SERVER

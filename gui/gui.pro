@@ -4,7 +4,7 @@ LIBS += ../common/libcommon.a
 
 QT += qml quick
 
-SOURCES += main.cpp \
+SOURCES += main.cpp
 
 HEADERS += \
 

@@ -3,20 +3,15 @@
 
 #include <QtNetwork>
 #include <QObject>
-#include <QString>
 #include <QTcpSocket>
 
 class Client: public QObject
 {
-    Q_OBJECT
 public:
     Client(QObject* parent = 0);
-    ~Client();
-    Q_INVOKABLE void start(QString address, quint16 port);
-    Q_INVOKABLE void writeMessage();
-    void readData();
-public slots:
-    void startTransfer();
+    Q_INVOKABLE void connect(QString address, quint16 port);
+    Q_INVOKABLE void disconnect();
+    Q_INVOKABLE bool connected();
 private:
     QTcpSocket client;
 };

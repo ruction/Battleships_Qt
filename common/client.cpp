@@ -1,42 +1,27 @@
 #include "client.h"
 #include <QHostAddress>
-#include <iostream>
 #include <QDebug>
-using namespace std;
 
 
 Client::Client(QObject* parent): QObject(parent)
 {
     qDebug() << "Client initialized." << flush;
-    connect(&client, SIGNAL(connected()),
-    this, SLOT(startTransfer()) );
 }
 
-Client::~Client()
+void Client::connect(QString address, quint16 port)
 {
-    client.close();
-}
-
-void Client::start(QString address, quint16 port)
-{
+    qDebug() << "Client connect to host" << address << "/" << port << flush;
     QHostAddress addr(address);
     client.connectToHost(addr, port);
 }
 
-void Client::startTransfer()
+void Client::disconnect()
 {
-    client.write("Hi, i am the client! :)", 24);
+    qDebug() << "Client closed" << flush;
+    client.close();
 }
 
-void Client::readData()
+bool Client::connected()
 {
-    char buffer[1024] = {0};
-    client.read(buffer, client.bytesAvailable());
-    cout << "client received: " << buffer << endl;
-//    client->close();
-}
-
-void Client::writeMessage()
-{
-    client.write("abc", 4);
+    return true;
 }

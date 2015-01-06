@@ -1,7 +1,5 @@
 #include "server.h"
-#include <iostream>
 #include <QDebug>
-using namespace std;
 
 
 Server::Server(QObject* parent): QObject(parent)
@@ -13,17 +11,25 @@ Server::Server(QObject* parent): QObject(parent)
     qDebug() << "Server initialized." << flush;
     connect(&server, SIGNAL(newConnection()),
     this, SLOT(acceptConnection()));
-    server.listen(QHostAddress::Any, 8888);
 }
 
-Server::~Server()
+void Server::start(quint16 port)
 {
+    qDebug() << "Server startet and listening..." << flush;
+    server.listen(QHostAddress::Any, port);
+}
+
+void Server::acceptConnection()
+{
+    qDebug() << "Server accepted connection..." << flush;
+    socket = server.nextPendingConnection();
+    //here socket to network
+}
+
+void Server::close()
+{
+    qDebug() << "Server closed" << flush;
     server.close();
-}
-
-QString Server::getMessage()
-{
-    return this->message;
 }
 
 QString Server::getIp()
@@ -34,32 +40,4 @@ QString Server::getIp()
 void Server::setIp(QString ip)
 {
     this->ip = ip;
-}
-
-void Server::setMessage(QString message)
-{
-    this->message = message;
-}
-
-void Server::acceptConnection()
-{
-    client = server.nextPendingConnection();
-
-    connect(client, SIGNAL(readyRead()),
-    this, SLOT(startRead()));
-}
-
-void Server::startRead()
-{
-    char buffer[2048] = {0};
-    client->read(buffer, client->bytesAvailable());
-    cout << "server received: " << buffer << flush << endl;
-    this->message = buffer;
-    emit messageChanged();
-    //    client->close();
-}
-
-void Server::writeMessage()
-{
-    client->write("abc", 4);
 }
