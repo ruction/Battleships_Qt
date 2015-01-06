@@ -10,7 +10,7 @@ class Server: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString message READ getMessage WRITE setMessage NOTIFY messageChanged)
-    Q_PROPERTY(QString ip READ getIp WRITE setIp CONSTANT)
+    Q_PROPERTY(QString ip READ getIp WRITE setIp)
 public:
     Server(QObject * parent = 0);
     Q_INVOKABLE void writeMessage();

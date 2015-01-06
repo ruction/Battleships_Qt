@@ -66,9 +66,16 @@ ApplicationWindow {
                 }
             },
             State {
-                name: "GameScreen"
+                name: "GameScreenSingle"
                 PropertyChanges {
-                    target: gameScreen
+                    target: gameScreenSingle
+                    visible: true
+                }
+            },
+            State {
+                name: "GameScreenMulti"
+                PropertyChanges {
+                    target: gameScreenMulti
                     visible: true
                 }
             },
@@ -197,78 +204,6 @@ ApplicationWindow {
                     easing.type: Easing.Linear
                     duration: 400
                 }
-            },
-            GameTransition {
-                id: gameTransition7
-
-                oldItem: newGameScreen
-                newItem: waitForPlayerScreen
-
-                from: "NewGameScreen"
-                to: "WaitForPlayerScreen"
-
-                NumberAnimation {
-                    target: gameTransition7.newItem
-                    properties: "x"
-                    from: app.width
-                    to: 0
-                    easing.type: Easing.Linear
-                    duration: 400
-                }
-            },
-            GameTransition {
-                id: gameTransition8
-
-                oldItem: waitForPlayerScreen
-                newItem: newGameScreen
-
-                from: "WaitForPlayerScreen"
-                to: "NewGameScreen"
-
-                NumberAnimation {
-                    target: gameTransition8.oldItem
-                    properties: "x"
-                    from: 0
-                    to: app.width
-                    easing.type: Easing.Linear
-                    duration: 400
-                }
-            },
-            GameTransition {
-                id: gameTransition9
-
-                oldItem: newGameScreen
-                newItem: connectToServerScreen
-
-                from: "NewGameScreen"
-                to: "ConnectToServerScreen"
-
-                NumberAnimation {
-                    target: gameTransition9.newItem
-                    properties: "x"
-                    from: app.width
-                    to: 0
-                    easing.type: Easing.Linear
-                    duration: 400
-                }
-            },
-            GameTransition {
-                id: gameTransition10
-
-                oldItem: connectToServerScreen
-                newItem: newGameScreen
-
-                from: "ConnectToServerScreen"
-                to: "NewGameScreen"
-
-                NumberAnimation {
-                    target: gameTransition10.oldItem
-                    properties: "x"
-                    from: 0
-                    to: app.width
-                    easing.type: Easing.Linear
-                    duration: 400
-                }
             }
         ]
     }
@@ -298,6 +233,8 @@ ApplicationWindow {
         onCancel: gameLogic.state = "HomeScreen"
     }
 
+    property string mode
+
     NewGameScreen {
         id: newGameScreen
         width: app.width
@@ -305,6 +242,8 @@ ApplicationWindow {
 
         onCancel: gameLogic.state = "HomeScreen"
         onNext: {
+            app.mode = mode;
+
             if (mode == "single") {
                 battleships.playerName = single.playerName;
                 battleships.board.width = single.boardWidth;
@@ -314,11 +253,21 @@ ApplicationWindow {
             } else {
                 if (kind == "server") {
                     battleships.playerName = multi.playerName;
-                    gameLogic.state = "WaitForPlayerScreen";
+                    battleships.board.width = multi.boardWidth;
+                    battleships.board.height = multi.boardHeight;
+                    battleships.enemyBoard.width = multi.boardWidth;
+                    battleships.enemyBoard.height = multi.boardHeight;
+
+                    gameLogic.state = "PlaceShipsScreen";
                 } else {
                     client.start("127.0.0.1", 8888);
                     battleships.playerName = multi.playerName;
-                    gameLogic.state = "ConnectToServerScreen"
+                    battleships.board.width = multi.boardWidth;
+                    battleships.board.height = multi.boardHeight;
+                    battleships.enemyBoard.width = multi.boardWidth;
+                    battleships.enemyBoard.height = multi.boardHeight;
+
+                    gameLogic.state = "PlaceShipsScreen"
                 }
             }
         }
@@ -330,7 +279,11 @@ ApplicationWindow {
         height: app.height
 
         onStartGame: {
-            gameLogic.state = "GameScreen"
+            if (mode == "single") {
+                gameLogic.state = "GameScreenSingle"
+            } else {
+                gameLogic.state = "GameScreenMulti"
+            }
         }
     }
 
@@ -350,8 +303,8 @@ ApplicationWindow {
         onCancel: gameLogic.state = "NewGameScreen"
     }
 
-    GameScreen {
-        id: gameScreen
+    GameScreenSingle {
+        id: gameScreenSingle
         width: app.width
         height: app.height
 
@@ -383,6 +336,18 @@ ApplicationWindow {
 
         onFinishedGame: {
             won_dialog.visible = true;
+        }
+    }
+
+    GameScreenMulti {
+        id: gameScreenMulti
+        width: app.width
+        height: app.height
+
+        onQuitGame: {
+        }
+
+        onFinishedGame: {
         }
     }
 }

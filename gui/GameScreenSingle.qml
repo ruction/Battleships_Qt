@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.1
 
 
 BaseScreen {
-    id: gameScreen
+    id: gameScreenSingle
 
     signal finishedGame
     signal quitGame
@@ -12,18 +12,11 @@ BaseScreen {
     NavigationBar {
         id: navigationBar
 
-        title: "GAME"
+        title: "GAME - SINGLE"
     }
 
     ColumnLayout {
         anchors.centerIn: parent
-
-//        EnemyBoardView {
-//            id: board_enemy
-
-//            scale: 0.93
-//            board: battleships.enemyBoard
-//        }
 
         MyBoardView {
             id: board_my

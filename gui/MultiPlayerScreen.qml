@@ -13,7 +13,8 @@ ColumnLayout {
     signal client_signal
 
     property string playerName: playerName_input.text
-
+    property int boardWidth: boardWidth_slider.value
+    property int boardHeight: boardHeight_slider.value
 
     RowLayout {
         anchors {
@@ -69,6 +70,43 @@ ColumnLayout {
         visible: true
 
         placeholderText: "name"
+    }
+    Text {
+        text: "Board width: " + boardWidth_slider.value
+        anchors {
+            horizontalCenter: multiPlayer.horizontalCenter
+        }
+    }
+    Slider {
+        id: boardWidth_slider
+
+        anchors {
+            horizontalCenter: multiPlayer.horizontalCenter
+        }
+
+        maximumValue: 10.0
+        minimumValue: 7.0
+        tickmarksEnabled: true
+        updateValueWhileDragging: true
+        stepSize: 1.0
+    }
+    Text {
+        text: "Board height: " + boardHeight_slider.value
+        anchors {
+            horizontalCenter: multiPlayer.horizontalCenter
+        }
+    }
+    Slider {
+        id: boardHeight_slider
+
+        anchors {
+            horizontalCenter: multiPlayer.horizontalCenter
+        }
+        maximumValue: 10.0
+        minimumValue: 7.0
+        tickmarksEnabled: true
+        updateValueWhileDragging: true
+        stepSize: 1.0
     }
     Text {
         id: address_txt

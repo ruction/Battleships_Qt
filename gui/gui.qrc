@@ -15,7 +15,7 @@
         <file>PlaceShipsScreen.qml</file>
         <file>images/water.png</file>
         <file>images/fired.png</file>
-        <file>GameScreen.qml</file>
+        <file>GameScreenSingle.qml</file>
         <file>images/ship.png</file>
         <file>images/fired_damage.png</file>
         <file>PlaceBoardView.qml</file>
@@ -23,5 +23,6 @@
         <file>images/hover.png</file>
         <file>WaitForPlayerScreen.qml</file>
         <file>ConnectToServerScreen.qml</file>
+        <file>GameScreenMulti.qml</file>
     </qresource>
 </RCC>
