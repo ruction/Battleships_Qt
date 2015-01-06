@@ -26,6 +26,8 @@ ApplicationWindow {
         id: client
     }
 
+
+
     Item {
         id: gameLogic
         state: "SplashScreen"
@@ -309,8 +311,9 @@ ApplicationWindow {
         text: "Are you sure?"
         visible: false
         onAccepted: {
-            gameLogic.state = "HomeScreen"
             battleships.board.reset();
+            battleships.reset();
+            gameLogic.state = "HomeScreen"
         }
     }
 
@@ -325,8 +328,9 @@ ApplicationWindow {
             text: battleships.playerName + " you won!! <br> Shots: " + battleships.shotsFired
             visible: false
             onAccepted: {
-                gameLogic.state = "HomeScreen"
                 battleships.board.reset();
+                battleships.reset();
+                gameLogic.state = "HomeScreen"
             }
         }
 

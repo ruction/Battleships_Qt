@@ -64,6 +64,12 @@ quint16 Battleships::getShotsFired() const {
     return shotsFired;
 }
 
+void Battleships::reset()
+{
+    playerName.clear();
+    shotsFired = 0;
+}
+
 /*
  * Makes the getAvailableShips QList available for the gui (qml)
  */

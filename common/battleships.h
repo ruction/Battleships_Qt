@@ -22,6 +22,7 @@ public:
     QString getPlayerName() const;
     Q_INVOKABLE void inkrementShots();
     quint16 getShotsFired() const;
+    Q_INVOKABLE void reset();
     QList<Ship*> getAvailableShips() const;
     QQmlListProperty<Ship> getAvailableShips_Quick();
     Board *board();
