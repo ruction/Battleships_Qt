@@ -26,8 +26,6 @@ ApplicationWindow {
         id: client
     }
 
-
-
     Item {
         id: gameLogic
         state: "SplashScreen"
@@ -236,6 +234,7 @@ ApplicationWindow {
     }
 
     property string mode
+    property string kind
 
     NewGameScreen {
         id: newGameScreen
@@ -245,6 +244,7 @@ ApplicationWindow {
         onCancel: gameLogic.state = "HomeScreen"
         onNext: {
             app.mode = mode;
+            app.kind = kind;
 
             if (mode == "single") {
                 battleships.playerName = single.playerName;
@@ -262,7 +262,6 @@ ApplicationWindow {
 
                     gameLogic.state = "PlaceShipsScreen";
                 } else {
-                    client.start("127.0.0.1", 8888);
                     battleships.playerName = multi.playerName;
                     battleships.board.width = multi.boardWidth;
                     battleships.board.height = multi.boardHeight;
@@ -284,6 +283,11 @@ ApplicationWindow {
             if (mode == "single") {
                 gameLogic.state = "GameScreenSingle"
             } else {
+                if (kind == "server") {
+                    server.start(8888);
+                } else if (kind == "client") {
+                    client.start("10.0.0.240", 8888);
+                }
                 gameLogic.state = "GameScreenMulti"
             }
         }
@@ -312,6 +316,7 @@ ApplicationWindow {
         visible: false
         onAccepted: {
             battleships.board.reset();
+            battleships.enemyBoard.reset();
             battleships.reset();
             gameLogic.state = "HomeScreen"
         }
@@ -329,6 +334,7 @@ ApplicationWindow {
             visible: false
             onAccepted: {
                 battleships.board.reset();
+                battleships.enemyBoard.reset();
                 battleships.reset();
                 gameLogic.state = "HomeScreen"
             }

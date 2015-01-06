@@ -23,7 +23,7 @@ void Server::acceptConnection()
 {
     qDebug() << "Server accepted connection..." << flush;
     socket = server.nextPendingConnection();
-    //here socket to network
+    this->network.setSocket(socket);
 }
 
 void Server::close()

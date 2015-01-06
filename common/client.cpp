@@ -6,19 +6,26 @@
 Client::Client(QObject* parent): QObject(parent)
 {
     qDebug() << "Client initialized." << flush;
+    connect(&socket, SIGNAL(connected()), this, SLOT(saveSocket()));
 }
 
-void Client::connect(QString address, quint16 port)
+void Client::start(QString address, quint16 port)
 {
-    qDebug() << "Client connect to host" << address << "/" << port << flush;
+    qDebug() << "Client connected to host" << address << "/" << port << flush;
     QHostAddress addr(address);
-    client.connectToHost(addr, port);
+    socket.connectToHost(addr, port);
+}
+
+void Client::saveSocket()
+{
+    qDebug() << "Client socket available!" << flush;
+    network.setSocket(&socket);
 }
 
 void Client::disconnect()
 {
     qDebug() << "Client closed" << flush;
-    client.close();
+    socket.close();
 }
 
 bool Client::connected()

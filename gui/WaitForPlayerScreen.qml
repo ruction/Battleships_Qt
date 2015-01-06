@@ -27,7 +27,7 @@ BaseScreen {
             text: "PORT: "
         }
         Text {
-            text: "MESSAGE: " + server.message
+            text: "MESSAGE: "
         }
         Button {
             id: cancel_btn

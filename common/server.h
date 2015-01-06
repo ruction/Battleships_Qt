@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include "network.h"
+
 
 class Server: public QObject
 {
@@ -22,6 +24,7 @@ private:
     QTcpServer server;
     QTcpSocket* socket;
     QString ip;
+    Network network;
 };
 
 #endif // SERVER
