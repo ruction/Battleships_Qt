@@ -22,8 +22,8 @@ void Server::start(quint16 port)
 void Server::acceptConnection()
 {
     qDebug() << "Server accepted connection..." << flush;
-    socket = server.nextPendingConnection();
-    this->network.setSocket(socket);
+    this->socket = server.nextPendingConnection();
+    this->network.setSocket(this->socket, "server");
 }
 
 void Server::close()
@@ -40,4 +40,9 @@ QString Server::getIp()
 void Server::setIp(QString ip)
 {
     this->ip = ip;
+}
+
+Network* Server::getNetwork()
+{
+    return &network;
 }

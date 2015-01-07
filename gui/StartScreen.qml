@@ -285,10 +285,11 @@ ApplicationWindow {
             } else {
                 if (kind == "server") {
                     server.start(8888);
+                    gameLogic.state = "WaitForPlayerScreen"
                 } else if (kind == "client") {
-                    client.start("10.0.0.240", 8888);
+                    client.start("141.82.163.215", 8888);
+                    gameLogic.state = "ConnectToServerScreen"
                 }
-                gameLogic.state = "GameScreenMulti"
             }
         }
     }
@@ -352,7 +353,7 @@ ApplicationWindow {
     GameScreenMulti {
         id: gameScreenMulti
         width: app.width
-        height: app.height
+        height: app.height 
 
         onQuitGame: {
             quitGame_dialog.visible = true

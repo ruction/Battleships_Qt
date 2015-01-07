@@ -12,12 +12,14 @@ class Server: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString ip READ getIp WRITE setIp)
+    Q_PROPERTY(Network *network READ getNetwork)
 public:
     Server(QObject * parent = 0);
     Q_INVOKABLE void start(quint16 port);
     Q_INVOKABLE void close();
     void setIp(QString ip);
     QString getIp();
+    Network* getNetwork();
 private slots:
     void acceptConnection();
 private:
