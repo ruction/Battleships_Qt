@@ -23,7 +23,7 @@ void Server::acceptConnection()
 {
     qDebug() << "Server accepted connection..." << flush;
     this->socket = server.nextPendingConnection();
-    this->network.setSocket(this->socket, "server");
+    this->network.setSocket(this->socket, "server", this->battleships);
 }
 
 void Server::close()
@@ -45,4 +45,9 @@ void Server::setIp(QString ip)
 Network* Server::getNetwork()
 {
     return &network;
+}
+
+void Server::setBattleships(Battleships *battleships)
+{
+    this->battleships = battleships;
 }

@@ -8,6 +8,7 @@
 Battleships::Battleships(QObject *parent)
     :QObject(parent), playerName("empty"), shotsFired(0)
 {
+    qDebug() << "Battleships initialized." << flush;
     /*
      * Fills QList<Ship*> availableShips with five
      * ship instances

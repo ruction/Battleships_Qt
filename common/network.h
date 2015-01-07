@@ -4,6 +4,7 @@
 #include <QtNetwork>
 #include <QObject>
 #include <QTcpSocket>
+#include <battleships.h>
 
 
 class Network: public QObject
@@ -11,11 +12,11 @@ class Network: public QObject
     Q_OBJECT
 public:
     Network(QObject* parent = 0);
-    void setSocket(QTcpSocket *socket, QString message);
+    void setSocket(QTcpSocket *socket, QString kind, Battleships* battleships);
     Q_INVOKABLE void sendGameOffer();
     Q_INVOKABLE void sendShot();
-    Q_INVOKABLE void sendShotReply();
-    Q_INVOKABLE void sendGameOfferReply();
+    Q_INVOKABLE void sendShotReply(QString result, QString ship, QString fields);
+    Q_INVOKABLE void sendGameOfferReply(QString success);
     Q_INVOKABLE void sendFinished();
 private slots:
     void readData();
@@ -29,6 +30,7 @@ private:
     void receivedGameOfferReply(QJsonObject options);
     void receivedFinished(QJsonObject options);
     void sendData(QString message);
+    Battleships *battleships;
 };
 
 #endif // NETWORKCLIENT

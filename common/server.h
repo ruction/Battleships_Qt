@@ -6,6 +6,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include "network.h"
+#include "battleships.h"
 
 
 class Server: public QObject
@@ -13,6 +14,7 @@ class Server: public QObject
     Q_OBJECT
     Q_PROPERTY(QString ip READ getIp WRITE setIp)
     Q_PROPERTY(Network *network READ getNetwork)
+    Q_PROPERTY(Battleships *battleships WRITE setBattleships MEMBER battleships)
 public:
     Server(QObject * parent = 0);
     Q_INVOKABLE void start(quint16 port);
@@ -20,6 +22,7 @@ public:
     void setIp(QString ip);
     QString getIp();
     Network* getNetwork();
+    void setBattleships(Battleships *battleships);
 private slots:
     void acceptConnection();
 private:
@@ -27,6 +30,7 @@ private:
     QTcpSocket* socket;
     QString ip;
     Network network;
+    Battleships *battleships;
 };
 
 #endif // SERVER

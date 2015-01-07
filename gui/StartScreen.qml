@@ -20,10 +20,12 @@ ApplicationWindow {
 
     Server {
         id: server
+        battleships: battleships
     }
 
     Client {
         id: client
+        battleships: battleships
     }
 
     Item {
@@ -285,14 +287,18 @@ ApplicationWindow {
             } else {
                 if (kind == "server") {
                     server.start(8888);
-                    gameLogic.state = "WaitForPlayerScreen"
+//                    gameLogic.state = "WaitForPlayerScreen"
+                    gameLogic.state = "GameScreenMulti";
                 } else if (kind == "client") {
                     client.start("141.82.163.215", 8888);
-                    gameLogic.state = "ConnectToServerScreen"
+//                    gameLogic.state = "ConnectToServerScreen"
+                    gameLogic.state = "GameScreenMulti";
                 }
             }
         }
     }
+
+
 
     WaitForPlayerScreen {
         id: waitForPlayerScreen

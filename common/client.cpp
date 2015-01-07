@@ -6,7 +6,7 @@
 Client::Client(QObject* parent): QObject(parent)
 {
     qDebug() << "Client initialized." << flush;
-    network.setSocket(&socket, "client");
+    network.setSocket(&socket, "client", this->battleships);
     connect(&socket, SIGNAL(connected()), this, SLOT(saveSocket()));
 }
 
@@ -36,4 +36,9 @@ bool Client::connected()
 Network* Client::getNetwork()
 {
     return &network;
+}
+
+void Client::setBattleships(Battleships *battleships)
+{
+    this->battleships = battleships;
 }
