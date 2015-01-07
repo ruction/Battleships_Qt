@@ -35,28 +35,73 @@ void Network::readData()
 
         if (type == "GAME_OFFER") {
             qDebug() << "GAME_OFFER sent!!";
-//            reciveGameOffer(options);
+            receivedGameOffer(options);
         } else if (type == "SHOT") {
             qDebug() << "SHOT sent!!";
-//            reciveShot(options);
+            receivedShot(options);
         } else if (type == "SHOT_REPLY") {
             qDebug() << "SHOT_REPLY sent!!";
-//            reciveShotReply(options);
+            receivedShotReply(options);
         } else if (type == "GAME_OFFER_REPLY") {
             qDebug() << "GAME_OFFER_REPLY sent!!";
-//            reciveGameOfferReply(options);
+            receivedGameOfferReply(options);
         } else if (type == "FINISHED") {
             qDebug() << "FINISHED sent!!";
-//            reciveFinished(options);
+            receivedFinished(options);
         } else {
             qDebug() << "Invalid message recieved";
         }
     }
 }
 
+void Network::receivedGameOffer(QJsonObject options)
+{
+
+}
+
+void Network::receivedShot(QJsonObject options)
+{
+
+}
+
+void Network::receivedShotReply(QJsonObject options)
+{
+
+}
+
+void Network::receivedGameOfferReply(QJsonObject options)
+{
+
+}
+
+void Network::receivedFinished(QJsonObject options)
+{
+
+}
+
 void Network::sendGameOffer()
 {
     sendData("gameOffer");
+}
+
+void Network::sendShot()
+{
+
+}
+
+void Network::sendShotReply()
+{
+
+}
+
+void Network::sendGameOfferReply()
+{
+
+}
+
+void Network::sendFinished()
+{
+
 }
 
 void Network::sendData(QString message)
