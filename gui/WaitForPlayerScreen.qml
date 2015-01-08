@@ -6,6 +6,7 @@ BaseScreen {
     id: waitForPlayer
 
     signal cancel
+    signal accept
 
     NavigationBar {
         id: navigationBar
@@ -34,6 +35,12 @@ BaseScreen {
             text: "cancel"
 
             onClicked: waitForPlayer.cancel()
+        }
+        Button {
+            id: accept_btn
+            text: "accept"
+
+            onClicked: waitForPlayer.accept()
         }
     }
 }

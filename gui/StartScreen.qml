@@ -289,13 +289,13 @@ ApplicationWindow {
             } else {
                 if (kind == "server") {
                     server.start(8888);
-//                    gameLogic.state = "WaitForPlayerScreen"
-                    gameLogic.state = "GameScreenMulti";
+                    gameLogic.state = "WaitForPlayerScreen"
+//                    gameLogic.state = "GameScreenMulti";
                 } else if (kind == "client") {
                     client.start("141.82.166.186", 8888);
 //                    client.start("141.82.175.4", 1337);
-//                    gameLogic.state = "ConnectToServerScreen"
-                    gameLogic.state = "GameScreenMulti";
+                    gameLogic.state = "ConnectToServerScreen"
+//                    gameLogic.state = "GameScreenMulti";
                 }
             }
         }
@@ -309,6 +309,7 @@ ApplicationWindow {
         height: app.height
 
         onCancel: gameLogic.state = "NewGameScreen"
+        onAccept: gameLogic.state = "GameScreenMulti"
     }
 
     ConnectToServerScreen {
@@ -317,6 +318,7 @@ ApplicationWindow {
         height: app.height
 
         onCancel: gameLogic.state = "NewGameScreen"
+        onAccept: gameLogic.state = "GameScreenMulti"
     }
 
     MessageDialog {
@@ -369,9 +371,6 @@ ApplicationWindow {
 
         onQuitGame: {
             quitGame_dialog.visible = true
-        }
-
-        onFinishedGame: {
         }
     }
 }

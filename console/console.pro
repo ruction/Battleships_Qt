@@ -5,6 +5,7 @@ CONFIG   -= app_bundle
 
 INCLUDEPATH += ../common
 LIBS += ../common/libcommon.a
+PRE_TARGETDEPS = ../common/libcommon.a
 
 SOURCES  += main.cpp \
     consoleclient.cpp

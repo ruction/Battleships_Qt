@@ -7,11 +7,8 @@ import Battleships 1.0
 BaseScreen {
     id: gameScreenMulti
 
-    signal finishedGame
     signal quitGame
-
     property Network network
-
 
     NavigationBar {
         id: navigationBar

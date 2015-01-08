@@ -14,7 +14,7 @@ public:
     Network(QObject* parent = 0);
     void setSocket(QTcpSocket *socket, QString kind);
     Q_INVOKABLE void sendGameOffer();
-    Q_INVOKABLE void sendShot(QString x, QString y);
+    Q_INVOKABLE void sendShot(quint8 x, quint8 y);
     Q_INVOKABLE void sendShotReply(QString result, QString ship, QString fields);
     Q_INVOKABLE void sendGameOfferReply(QString success);
     Q_INVOKABLE void sendFinished(QString reason);
@@ -30,8 +30,10 @@ private:
     void receivedShotReply(QJsonObject options);
     void receivedGameOfferReply(QJsonObject options);
     void receivedFinished(QJsonObject options);
-    void sendData(QString message);
+    void sendData(QString type, QJsonObject options);
     Battleships *battleships;
+    quint8 x;
+    quint8 y;
 };
 
 #endif // NETWORKCLIENT

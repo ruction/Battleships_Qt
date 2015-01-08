@@ -20,7 +20,7 @@ public:
     Network* getNetwork();
     void setBattleships(Battleships *battleships);
 private slots:
-    void saveSocket();
+    void sendGameOffer();
 private:
     QTcpSocket socket;
     Network network;

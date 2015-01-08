@@ -64,7 +64,7 @@ void Board::setWidth(const quint8& width) {
  * Returns board width
  */
 quint8 Board::getWidth() const {
-    return width;
+    return this->width;
 }
 
 /*
@@ -81,7 +81,7 @@ void Board::setHeight(const quint8& height) {
  * Returns board height
  */
 quint8 Board::getHeight() const {
-    return height;
+    return this->height;
 }
 
 /*
@@ -216,6 +216,19 @@ QSet<quint16> Board::getShipPositions() const {
     return shipPositions;
 }
 
+void Board::addShipsPositionsMulti(quint16 index)
+{
+    shipsPositionsMulti.insert(index);
+    emit shipsPositionsMultiChanged();
+    QPoint point = this->coordinatesFromIndex(index);
+    emit shipAdded(point.x(), point.y());
+}
+
+QSet<quint16> Board::getShipsPositionsMulti()
+{
+    return shipsPositionsMulti;
+}
+
 /*
  * Calculates the index on the board due to the overloaded parameters x and y.
  * If the parameters are out of the board range a error is returned.
@@ -249,6 +262,11 @@ QSet<quint16> Board::getShots() const {
 bool Board::shipDamaged(quint8 x, quint8 y)
 {
     return getShipPositions().contains(indexFromCoordinates(x,y));
+}
+
+bool Board::shipDamagedMulti(quint8 x, quint8 y)
+{
+    return getShipsPositionsMulti().contains(indexFromCoordinates(x,y));
 }
 
 
@@ -301,6 +319,15 @@ bool Board::shipOnPosition(quint8 x, quint8 y)
             return true;
     } else {
             return false;
+    }
+}
+
+bool Board::shipOnPositionMulti(quint8 x, quint8 y)
+{
+    if(shipsPositionsMulti.contains(indexFromCoordinates(x, y))) {
+        return true;
+    } else {
+        return false;
     }
 }
 

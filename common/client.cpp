@@ -7,7 +7,7 @@ Client::Client(QObject* parent): QObject(parent)
 {
     qDebug() << "Client initialized." << flush;
     network.setSocket(&socket, "client");
-    connect(&socket, SIGNAL(connected()), this, SLOT(saveSocket()));
+    connect(&socket, SIGNAL(connected()), this, SLOT(sendGameOffer()));
 }
 
 void Client::start(QString address, quint16 port)
@@ -18,9 +18,10 @@ void Client::start(QString address, quint16 port)
     socket.connectToHost(addr, port);
 }
 
-void Client::saveSocket()
+void Client::sendGameOffer()
 {
-    qDebug() << "Client socket available!" << flush;
+    qDebug() << "Send game offer!" << flush;
+    network.sendGameOffer();
 }
 
 void Client::disconnect()

@@ -6,6 +6,7 @@ BaseScreen {
     id: connectToServer
 
     signal cancel
+    signal accept
 
     NavigationBar {
         id: navigationBar
@@ -26,11 +27,20 @@ BaseScreen {
         Text {
             text: "PORT: "
         }
+
         Button {
             id: cancel_btn
             text: "cancel"
 
             onClicked: connectToServer.cancel()
         }
+
+        Button {
+            id: accept_btn
+            text: "accept"
+
+            onClicked: connectToServer.accept()
+        }
+
     }
 }

@@ -29,7 +29,7 @@ Grid {
             readonly property int row: model.index / board.width
             readonly property int column: model.index % board.width
 
-            property bool isShip: board.shipOnPosition(row, column)
+            property bool isShip: board.shipOnPositionMulti(row, column)
             property bool isShot: board.shotOnPosition(row, column)
 
             Image {
@@ -65,13 +65,16 @@ Grid {
                         grid_element.isShip = true;
                     }
                 }
+                onGameFinished: {
+                    console.log("FINISH");
+                    destroyed_dialog.visible = true;
+                }
             }
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
                     board.shoot(grid_element.column, grid_element.row);
-                    console.log(network);
                     root.network.sendShot(grid_element.column, grid_element.row);
 
 //                    grid_element.isShot = true

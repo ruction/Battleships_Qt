@@ -45,7 +45,7 @@ BaseScreen {
             MultiPlayerScreen {
                 id: multiScreen
 
-                onNext: newGame.next()
+                onNext: newGame.next();
                 onCancel: newGame.cancel()
                 onServer_signal: kind = "server"
                 onClient_signal: kind = "client"

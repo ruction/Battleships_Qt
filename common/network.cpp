@@ -73,11 +73,8 @@ void Network::receivedGameOffer(QJsonObject options)
 
 void Network::receivedShot(QJsonObject options)
 {
-    quint16 x = options.value("x").toInt();
-    quint16 y = options.value("y").toInt();
-    qDebug() << x;
-    qDebug() << y;
-
+    quint8 x = options.value("x").toInt();
+    quint8 y = options.value("y").toInt();
 
     if (battleships->board()->shoot(x, y)) {
         QString result;
@@ -91,16 +88,18 @@ void Network::receivedShot(QJsonObject options)
                 result = "sunk";
                 fields = battleships->board()->shipFromCoordinates(x,y)->getPositions(); // maybe wrong format
                 sendShotReply(result, battleships->board()->shipFromCoordinates(x,y)->getName(), "coming soon");
-                return;
+                if(battleships->board()->allShipsDestroyed()) {
+                    qDebug() << "allShipsDestroyed!!";
+                    sendFinished("won");
+                    emit battleships->enemyBoard()->gameFinished();
+                }
             }
         } else {
             qDebug() << "miss";
             result = "miss";
         }
 
-        if(battleships->board()->allShipsDestroyed()) {
-            sendFinished("won");
-        }
+
         sendShotReply(result, "", "");
 
     }
@@ -111,14 +110,22 @@ void Network::receivedShotReply(QJsonObject options)
     // hit, sunk or miss
     QString result = options.value("result").toString();
     // shipname only set if ship sunk
-    QString ship = options.value("ship").toString();
+
     // Only set if ship is sunk otherwise its null
-    QJsonObject fields = options.value("fields").toObject();
-    qDebug() << result;
-    qDebug() << ship;
-    qDebug() << fields;
 
+    qDebug() << "result" << result;
+    qDebug() << "global: " << this->x;
+    qDebug() << "global: " << this->y;
 
+    if (result == "hit") {
+        qDebug() << "hit!! received.";
+        quint16 index = battleships->enemyBoard()->indexFromCoordinates(this->x, this->y);
+        battleships->enemyBoard()->addShipsPositionsMulti(index);
+    } else if (result == "sunk") {
+        qDebug() << "sunk!! received.";
+        quint16 index = battleships->enemyBoard()->indexFromCoordinates(this->x, this->y);
+        battleships->enemyBoard()->addShipsPositionsMulti(index);
+    }
 }
 
 void Network::receivedGameOfferReply(QJsonObject options)
@@ -131,71 +138,72 @@ void Network::receivedGameOfferReply(QJsonObject options)
 
 void Network::receivedFinished(QJsonObject options)
 {
-    // won, quit or error
+    // { "type": "FINISHED", "options": { "reason": "" } } won, quit or error
+    QString reason = options.value("reason").toString();
+
+    qDebug() << "finished received";
+    if (reason == "won") {
+        emit battleships->enemyBoard()->gameFinished();
+    } else if (reason == "quit") {
+
+    } else if (reason == "error") {
+
+    }
 }
 
 void Network::sendGameOffer()
 {
     // { "type": "GAME_OFFER", "options": { "player_name": "example name", "board_size_x": 10, "board_size_y": 10, "ships_preset": "default" } }
-    QString message;
-    QString playerName;
-    quint16 boardWidth;
-    quint16 boardHeight;
-    QString shipsPreset;
+    QJsonObject options;
+    options.insert("player_name", battleships->getPlayerName());
+    options.insert("board_size_x", battleships->board()->getWidth());
+    options.insert("board_size_y", battleships->board()->getHeight());
+    options.insert("ships_preset", "default");
 
-    message = "{ \"type\": \"GAME_OFFER\", \"options\": { \"player_name\":" + playerName
-            +  ", \"board_size_x\":" +  boardWidth + ", \"board_size_y\":" + boardHeight
-            + ", \"ships_preset\":" + shipsPreset + "} }";
-
-    sendData(message);
+    sendData("GAME_OFFER", options);
 }
 
-void Network::sendShot(QString x, QString y)
+void Network::sendShot(quint8 x, quint8 y)
 {
     // { "type": "SHOT", "options": { "x": 5, "y": 5 } }
-    QString message;
+    this->x = x;
+    this->y = y;
+    QJsonObject options;
+    options.insert("x", x);
+    options.insert("y", y);
 
-    message = "{ \"type\": \"SHOT\", \"options\": { \"x\":" + x + ", \"y\":" + y + "} }";
-    qDebug() << message;
-
-    sendData(message);
-
+    sendData("SHOT", options);
 }
 
 void Network::sendShotReply(QString result, QString ship, QString fields)
 {
     // { "type": "SHOT_REPLY", "options": { "result": "", "ship": "", "fields": [ { "x": 0, "y": 0 } ] } }
-    QString message;
+    QJsonObject options;
+    options.insert("result", result);
+    options.insert("ship", ship);
+    options.insert("fields", fields);
 
-    message = "{ \"type\": \"SHOT_REPLY\", \"options\": { \"result\":" + result
-            + ", \"ship\":" + ship + ", \"fields\":" + fields + "} }";
-    qDebug() << message;
-
-    sendData(message);
+    sendData("SHOT_REPLY", options);
 }
 
 void Network::sendGameOfferReply(QString success)
 {
     // { "type": "GAME_OFFER_REPLY", "options": { "player_name": "example name", "success ": true } }
-    QString message;
+    QJsonObject options;
+    options.insert("player_name", battleships->getPlayerName());
+    options.insert("success", success);
 
-    message = "{ \"type\": \"GAME_OFFER_REPLY\", \"options\": { \"player_name\":" + battleships->getPlayerName()
-            +  ", \"success\":" +  success + "} }";
-    qDebug() << message;
-
-    sendData(message);
-
+    sendData("GAME_OFFER_REPLY", options);
 }
 
 void Network::sendFinished(QString reason)
 {
     // { "type": "FINISHED", "options": { "reason": "" } }
-    QString message;
+    QJsonObject options;
+    options.insert("reason", reason);
+    qDebug() << "finished send.";
 
-    message = "{ \"type\": \"FINISHED\", \"options\": { \"reason\":" + reason + "} }";
-    qDebug() << message;
-
-    sendData(message);
+    sendData("FINISHED", options);
 }
 
 void Network::setBattleships(Battleships *battleships)
@@ -203,9 +211,14 @@ void Network::setBattleships(Battleships *battleships)
     this->battleships = battleships;
 }
 
-void Network::sendData(QString message)
+void Network::sendData(QString type, QJsonObject options)
 {
-    stream << message << '\n' << flush;
+    QJsonObject root;
+    root.insert("type", type);
+    root.insert("options", options);
+    QJsonDocument document(root);
+
+    stream << document.toJson(QJsonDocument::Compact) << '\n' << flush;
 }
 
 
