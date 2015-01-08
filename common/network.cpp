@@ -8,11 +8,10 @@ Network::Network(QObject* parent): QObject(parent)
     qDebug() << "Network initialized." << flush;
 }
 
-void Network::setSocket(QTcpSocket *socket, QString kind, Battleships* battleships)
+void Network::setSocket(QTcpSocket *socket, QString kind)
 {
     this->socket = socket;
     this->kind = kind;
-    this->battleships = battleships;
     qDebug() << "Socket set." << flush;
     stream.setDevice(this->socket);
     connect(this->socket, SIGNAL(readyRead()), this, SLOT(readData()));
@@ -98,6 +97,10 @@ void Network::receivedShot(QJsonObject options)
             qDebug() << "miss";
             result = "miss";
         }
+
+        if(battleships->board()->allShipsDestroyed()) {
+            sendFinished("won");
+        }
         sendShotReply(result, "", "");
 
     }
@@ -114,6 +117,8 @@ void Network::receivedShotReply(QJsonObject options)
     qDebug() << result;
     qDebug() << ship;
     qDebug() << fields;
+
+
 }
 
 void Network::receivedGameOfferReply(QJsonObject options)
@@ -127,8 +132,6 @@ void Network::receivedGameOfferReply(QJsonObject options)
 void Network::receivedFinished(QJsonObject options)
 {
     // won, quit or error
-    QString reason = options.value("reason").toString();
-    qDebug() << reason;
 }
 
 void Network::sendGameOffer()
@@ -147,9 +150,16 @@ void Network::sendGameOffer()
     sendData(message);
 }
 
-void Network::sendShot()
+void Network::sendShot(QString x, QString y)
 {
     // { "type": "SHOT", "options": { "x": 5, "y": 5 } }
+    QString message;
+
+    message = "{ \"type\": \"SHOT\", \"options\": { \"x\":" + x + ", \"y\":" + y + "} }";
+    qDebug() << message;
+
+    sendData(message);
+
 }
 
 void Network::sendShotReply(QString result, QString ship, QString fields)
@@ -159,6 +169,7 @@ void Network::sendShotReply(QString result, QString ship, QString fields)
 
     message = "{ \"type\": \"SHOT_REPLY\", \"options\": { \"result\":" + result
             + ", \"ship\":" + ship + ", \"fields\":" + fields + "} }";
+    qDebug() << message;
 
     sendData(message);
 }
@@ -170,14 +181,26 @@ void Network::sendGameOfferReply(QString success)
 
     message = "{ \"type\": \"GAME_OFFER_REPLY\", \"options\": { \"player_name\":" + battleships->getPlayerName()
             +  ", \"success\":" +  success + "} }";
+    qDebug() << message;
 
     sendData(message);
 
 }
 
-void Network::sendFinished()
+void Network::sendFinished(QString reason)
 {
     // { "type": "FINISHED", "options": { "reason": "" } }
+    QString message;
+
+    message = "{ \"type\": \"FINISHED\", \"options\": { \"reason\":" + reason + "} }";
+    qDebug() << message;
+
+    sendData(message);
+}
+
+void Network::setBattleships(Battleships *battleships)
+{
+    this->battleships = battleships;
 }
 
 void Network::sendData(QString message)

@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import Battleships 1.0
 
 
 BaseScreen {
@@ -8,6 +9,9 @@ BaseScreen {
 
     signal finishedGame
     signal quitGame
+
+    property Network network
+
 
     NavigationBar {
         id: navigationBar
@@ -23,6 +27,7 @@ BaseScreen {
 
             scale: 0.93
             board: battleships.enemyBoard
+            network: gameScreenMulti.network
         }
 
         MyBoardViewMulti {

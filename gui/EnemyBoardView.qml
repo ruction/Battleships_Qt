@@ -3,7 +3,9 @@ import Battleships 1.0
 import QtQuick.Dialogs 1.2
 
 Grid {
+    id: root
     property Board board
+    property Network network
 
     x: 5; y: 5
     rows: board.height; columns: board.width;
@@ -69,27 +71,22 @@ Grid {
                 anchors.fill: parent
                 onClicked: {
                     board.shoot(grid_element.column, grid_element.row);
-                    grid_element.isShot = true
-                    battleships.inkrementShots();
-                    if (board.shipDamaged(grid_element.column, grid_element.row)) {
-                        console.log("DAMAGE");
+                    console.log(network);
+                    root.network.sendShot(grid_element.column, grid_element.row);
 
-                        var shipFromClick = board.shipFromCoordinates(grid_element.column, grid_element.row);
-                        if (board.shipDestroyed(shipFromClick)) {
-                            console.log("DESTROYED");
+//                    grid_element.isShot = true
+//                    battleships.inkrementShots();
+//                    if (board.shipDamaged(grid_element.column, grid_element.row)) {
+//                        console.log("DAMAGE");
 
-                            console.log(shipFromClick.name);
-                            destroyed_dialog.text = "SHIP DESTROYED!! - " + shipFromClick.name + "(" + shipFromClick.length + ")";
-                            destroyed_dialog.visible = true;
-                        }
-                        if (board.allShipsDestroyed()) {
-                            console.log("FINISH");
-                            destroyed_dialog.visible = false;
-                            gameScreen.finishedGame()
-                        }
-                    } else {
-                        console.log("NOTHING");
-                    }
+//                        if (board.allShipsDestroyed()) {
+//                            console.log("FINISH");
+//                            destroyed_dialog.visible = false;
+//                            gameScreen.finishedGame()
+//                        }
+//                    } else {
+//                        console.log("NOTHING");
+//                    }
 
                 }
             }

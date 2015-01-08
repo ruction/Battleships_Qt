@@ -15,6 +15,7 @@ Server::Server(QObject* parent): QObject(parent)
 
 void Server::start(quint16 port)
 {
+    network.setBattleships(this->battleships);
     qDebug() << "Server startet and listening..." << flush;
     server.listen(QHostAddress::Any, port);
 }
@@ -23,7 +24,7 @@ void Server::acceptConnection()
 {
     qDebug() << "Server accepted connection..." << flush;
     this->socket = server.nextPendingConnection();
-    this->network.setSocket(this->socket, "server", this->battleships);
+    this->network.setSocket(this->socket, "server");
 }
 
 void Server::close()

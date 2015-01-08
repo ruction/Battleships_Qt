@@ -243,6 +243,8 @@ ApplicationWindow {
         width: app.width
         height: app.height
 
+        property Network network: kind == "server" ? server.network : client.network
+
         onCancel: gameLogic.state = "HomeScreen"
         onNext: {
             app.mode = mode;
@@ -290,7 +292,8 @@ ApplicationWindow {
 //                    gameLogic.state = "WaitForPlayerScreen"
                     gameLogic.state = "GameScreenMulti";
                 } else if (kind == "client") {
-                    client.start("141.82.163.215", 8888);
+                    client.start("141.82.166.186", 8888);
+//                    client.start("141.82.175.4", 1337);
 //                    gameLogic.state = "ConnectToServerScreen"
                     gameLogic.state = "GameScreenMulti";
                 }
@@ -359,7 +362,10 @@ ApplicationWindow {
     GameScreenMulti {
         id: gameScreenMulti
         width: app.width
-        height: app.height 
+        height: app.height
+
+        network: newGameScreen.network
+        onNetworkChanged: console.log("Network changed: " + network)
 
         onQuitGame: {
             quitGame_dialog.visible = true

@@ -10,7 +10,7 @@
 class Client: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Network *network READ getNetwork)
+    Q_PROPERTY(Network *network READ getNetwork CONSTANT)
     Q_PROPERTY(Battleships *battleships WRITE setBattleships MEMBER battleships)
 public:
     Client(QObject* parent = 0);

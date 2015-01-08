@@ -6,13 +6,14 @@
 Client::Client(QObject* parent): QObject(parent)
 {
     qDebug() << "Client initialized." << flush;
-    network.setSocket(&socket, "client", this->battleships);
+    network.setSocket(&socket, "client");
     connect(&socket, SIGNAL(connected()), this, SLOT(saveSocket()));
 }
 
 void Client::start(QString address, quint16 port)
 {
     qDebug() << "Client connected to host" << address << "/" << port << flush;
+    network.setBattleships(this->battleships);
     QHostAddress addr(address);
     socket.connectToHost(addr, port);
 }

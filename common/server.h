@@ -13,7 +13,7 @@ class Server: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString ip READ getIp WRITE setIp)
-    Q_PROPERTY(Network *network READ getNetwork)
+    Q_PROPERTY(Network *network READ getNetwork CONSTANT)
     Q_PROPERTY(Battleships *battleships WRITE setBattleships MEMBER battleships)
 public:
     Server(QObject * parent = 0);

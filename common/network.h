@@ -12,12 +12,13 @@ class Network: public QObject
     Q_OBJECT
 public:
     Network(QObject* parent = 0);
-    void setSocket(QTcpSocket *socket, QString kind, Battleships* battleships);
+    void setSocket(QTcpSocket *socket, QString kind);
     Q_INVOKABLE void sendGameOffer();
-    Q_INVOKABLE void sendShot();
+    Q_INVOKABLE void sendShot(QString x, QString y);
     Q_INVOKABLE void sendShotReply(QString result, QString ship, QString fields);
     Q_INVOKABLE void sendGameOfferReply(QString success);
-    Q_INVOKABLE void sendFinished();
+    Q_INVOKABLE void sendFinished(QString reason);
+    void setBattleships(Battleships* battleships);
 private slots:
     void readData();
 private:
