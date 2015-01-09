@@ -350,6 +350,7 @@ void Board::reset()
 {
     shipPositions.clear();
     shots.clear();
+    shipsPositionsMulti.clear();
     emit boardReset();
 }
 

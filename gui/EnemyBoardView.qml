@@ -7,6 +7,8 @@ Grid {
     property Board board
     property Network network
 
+
+
     x: 5; y: 5
     rows: board.height; columns: board.width;
 
@@ -64,10 +66,6 @@ Grid {
                     if (y === grid_element.row && x === grid_element.column) {
                         grid_element.isShip = true;
                     }
-                }
-                onGameFinished: {
-                    console.log("FINISH");
-                    destroyed_dialog.visible = true;
                 }
             }
 

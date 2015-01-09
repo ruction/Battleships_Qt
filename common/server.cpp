@@ -23,8 +23,16 @@ void Server::start(quint16 port)
 void Server::acceptConnection()
 {
     qDebug() << "Server accepted connection..." << flush;
-    this->socket = server.nextPendingConnection();
-    this->network.setSocket(this->socket, "server");
+
+    QTcpSocket *client = server.nextPendingConnection();
+    if (this->socket) {
+        qDebug() << "Disconnected second client.";
+        client->disconnectFromHost();
+    } else {
+        this->socket = client;
+        this->network.setSocket(this->socket, "server");
+        connect(this->socket, SIGNAL(disconnected()), this->socket, SLOT(deleteLater());
+    }
 }
 
 void Server::close()

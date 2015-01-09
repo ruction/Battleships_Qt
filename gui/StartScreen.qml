@@ -292,7 +292,7 @@ ApplicationWindow {
                     gameLogic.state = "WaitForPlayerScreen"
 //                    gameLogic.state = "GameScreenMulti";
                 } else if (kind == "client") {
-                    client.start("141.82.166.186", 8888);
+                    client.start("169.254.151.254", 8888);
 //                    client.start("141.82.175.4", 1337);
                     gameLogic.state = "ConnectToServerScreen"
 //                    gameLogic.state = "GameScreenMulti";
@@ -368,6 +368,14 @@ ApplicationWindow {
 
         network: newGameScreen.network
         onNetworkChanged: console.log("Network changed: " + network)
+
+        Connections {
+            target: battleships.enemyBoard
+
+            onGameFinished: {
+                won_dialog.visible = true;
+            }
+        }
 
         onQuitGame: {
             quitGame_dialog.visible = true

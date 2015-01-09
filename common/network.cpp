@@ -3,18 +3,28 @@
 #include <QTcpSocket>
 
 
-Network::Network(QObject* parent): QObject(parent)
+Network::Network(QObject* parent)
+    : QObject(parent)
+    , socket(NULL)
 {
     qDebug() << "Network initialized." << flush;
 }
 
 void Network::setSocket(QTcpSocket *socket, QString kind)
 {
+    if (this->socket) {
+        disconnect(this->socket, SIGNAL(readyRead()), this, SLOT(readData()));
+    }
+
     this->socket = socket;
     this->kind = kind;
     qDebug() << "Socket set." << flush;
     stream.setDevice(this->socket);
-    connect(this->socket, SIGNAL(readyRead()), this, SLOT(readData()));
+
+    if (this->socket) {
+
+        connect(this->socket, SIGNAL(readyRead()), this, SLOT(readData()));
+    }
 }
 
 void Network::readData()

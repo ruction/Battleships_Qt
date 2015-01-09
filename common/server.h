@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QPointer>
 #include "network.h"
 #include "battleships.h"
 
@@ -27,7 +28,7 @@ private slots:
     void acceptConnection();
 private:
     QTcpServer server;
-    QTcpSocket* socket;
+    QPointer<QTcpSocket> socket;
     QString ip;
     Network network;
     Battleships *battleships;
