@@ -71,9 +71,9 @@ void Network::receivedGameOffer(QJsonObject options)
     if (battleships->board()->getHeight() == boardHeight && battleships->board()->getWidth() == boardWidth) {
         battleships->setEnemyName(playerName);
         emit startGame();
-        sendGameOfferReply("true");
+        sendGameOfferReply(true);
     } else {
-        sendGameOfferReply("false");
+        sendGameOfferReply(false);
         socket->disconnectFromHost();
     }
 }
@@ -128,15 +128,16 @@ void Network::receivedShotReply(QJsonObject options)
         quint16 index = battleships->enemyBoard()->indexFromCoordinates(this->x, this->y);
         battleships->enemyBoard()->addShipsPositionsMulti(index);
         emit sunk(ship);
+    } else if (result == "miss") {
     }
 }
 
 void Network::receivedGameOfferReply(QJsonObject options)
 {
     QString playerName = options.value("player_name").toString();
-    QString success = options.value("success").toString();
+    bool success = options.value("success").toBool();
 
-    if (success == "true") {
+    if (success) {
         battleships->setEnemyName(playerName);
         emit startGame();
     } else {
@@ -194,7 +195,7 @@ void Network::sendShotReply(QString result, QString ship, QString fields)
     sendData("SHOT_REPLY", options);
 }
 
-void Network::sendGameOfferReply(QString success)
+void Network::sendGameOfferReply(bool success)
 {
     // { "type": "GAME_OFFER_REPLY", "options": { "player_name": "example name", "success ": true } }
     QJsonObject options;

@@ -38,7 +38,6 @@ BaseScreen {
             id: board_my
 
             board: battleships.board
-
             transform: Rotation {
                 origin.x: 100
                 origin.y: 100

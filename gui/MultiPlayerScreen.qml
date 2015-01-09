@@ -14,6 +14,8 @@ ColumnLayout {
     property string playerName: playerName_input.text
     property int boardWidth: boardWidth_slider.value
     property int boardHeight: boardHeight_slider.value
+    property string ip: address_input.text
+    property string port: port_input.text
 
     RowLayout {
         anchors {

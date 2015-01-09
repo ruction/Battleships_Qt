@@ -16,7 +16,7 @@ public:
     Q_INVOKABLE void sendGameOffer();
     Q_INVOKABLE void sendShot(quint8 x, quint8 y);
     Q_INVOKABLE void sendShotReply(QString result, QString ship, QString fields);
-    Q_INVOKABLE void sendGameOfferReply(QString success);
+    Q_INVOKABLE void sendGameOfferReply(bool success);
     Q_INVOKABLE void sendFinished(QString reason);
     void setBattleships(Battleships* battleships);
 private slots:
@@ -39,6 +39,7 @@ signals:
     void gameRefused();
     void sunk(QString shipName);
     void enemyQuitGame();
+    void yourTurnChanged();
 };
 
 #endif // NETWORKCLIENT

@@ -8,7 +8,6 @@ Grid {
     property Network network
 
 
-
     x: 5; y: 5
     rows: board.height; columns: board.width;
 
@@ -70,24 +69,12 @@ Grid {
             }
 
             MouseArea {
+                id: enemyBoardField
+                enabled: root.enabled
                 anchors.fill: parent
                 onClicked: {
                     board.shoot(grid_element.column, grid_element.row);
                     root.network.sendShot(grid_element.column, grid_element.row);
-
-//                    grid_element.isShot = true
-//                    battleships.inkrementShots();
-//                    if (board.shipDamaged(grid_element.column, grid_element.row)) {
-//                        console.log("DAMAGE");
-
-//                        if (board.allShipsDestroyed()) {
-//                            console.log("FINISH");
-//                            destroyed_dialog.visible = false;
-//                            gameScreen.finishedGame()
-//                        }
-//                    } else {
-//                        console.log("NOTHING");
-//                    }
 
                 }
             }

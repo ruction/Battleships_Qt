@@ -237,6 +237,8 @@ ApplicationWindow {
 
     property string mode
     property string kind
+    property string port
+    property string ip
 
     NewGameScreen {
         id: newGameScreen
@@ -249,6 +251,8 @@ ApplicationWindow {
         onNext: {
             app.mode = mode;
             app.kind = kind;
+            app.port = multi.port
+            app.ip = multi.ip
 
             if (mode == "single") {
                 battleships.playerName = single.playerName;
@@ -288,14 +292,11 @@ ApplicationWindow {
                 gameLogic.state = "GameScreenSingle"
             } else {
                 if (kind == "server") {
-                    server.start(8888);
+                    server.start(port);
                     gameLogic.state = "WaitForPlayerScreen"
-//                    gameLogic.state = "GameScreenMulti";
                 } else if (kind == "client") {
-                    client.start("141.82.166.186", 8888);
-//                    client.start("141.82.175.4", 1337);
+                    client.start(ip, port);
                     gameLogic.state = "ConnectToServerScreen"
-//                    gameLogic.state = "GameScreenMulti";
                 }
             }
         }
