@@ -292,7 +292,7 @@ ApplicationWindow {
                     gameLogic.state = "WaitForPlayerScreen"
 //                    gameLogic.state = "GameScreenMulti";
                 } else if (kind == "client") {
-                    client.start("169.254.151.254", 8888);
+                    client.start("141.82.166.186", 8888);
 //                    client.start("141.82.175.4", 1337);
                     gameLogic.state = "ConnectToServerScreen"
 //                    gameLogic.state = "GameScreenMulti";
@@ -334,23 +334,24 @@ ApplicationWindow {
         }
     }
 
+    MessageDialog {
+        id: won_dialog
+        title: "YOU WON!"
+        text: battleships.playerName + " you won!! <br> Shots: " + battleships.shotsFired
+        visible: false
+        onAccepted: {
+            battleships.board.reset();
+            battleships.enemyBoard.reset();
+            battleships.reset();
+            server.disconnect();
+            gameLogic.state = "HomeScreen"
+        }
+    }
+
     GameScreenSingle {
         id: gameScreenSingle
         width: app.width
         height: app.height
-
-        MessageDialog {
-            id: won_dialog
-            title: "YOU WON!"
-            text: battleships.playerName + " you won!! <br> Shots: " + battleships.shotsFired
-            visible: false
-            onAccepted: {
-                battleships.board.reset();
-                battleships.enemyBoard.reset();
-                battleships.reset();
-                gameLogic.state = "HomeScreen"
-            }
-        }
 
         onQuitGame: {
             quitGame_dialog.visible = true;

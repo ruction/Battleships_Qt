@@ -19,7 +19,7 @@ class Server: public QObject
 public:
     Server(QObject * parent = 0);
     Q_INVOKABLE void start(quint16 port);
-    Q_INVOKABLE void close();
+    Q_INVOKABLE void disconnect();
     void setIp(QString ip);
     QString getIp();
     Network* getNetwork();

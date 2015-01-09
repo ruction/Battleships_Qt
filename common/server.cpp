@@ -31,11 +31,11 @@ void Server::acceptConnection()
     } else {
         this->socket = client;
         this->network.setSocket(this->socket, "server");
-        connect(this->socket, SIGNAL(disconnected()), this->socket, SLOT(deleteLater());
+        connect(this->socket, SIGNAL(disconnected()), this->socket, SLOT(deleteLater()));
     }
 }
 
-void Server::close()
+void Server::disconnect()
 {
     qDebug() << "Server closed" << flush;
     server.close();
