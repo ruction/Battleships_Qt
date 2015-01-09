@@ -34,6 +34,9 @@ private:
     Battleships *battleships;
     quint8 x;
     quint8 y;
+signals:
+    void startGame();
+    void gameRefused();
 };
 
 #endif // NETWORKCLIENT

@@ -21,9 +21,12 @@ public:
     void setBattleships(Battleships *battleships);
 private slots:
     void sendGameOffer();
+    void clientIsDisconnected();
 private:
     QTcpSocket socket;
     Network network;
     Battleships *battleships;
+signals:
+    void gameDisconnected();
 };
 #endif // CLIENT_H

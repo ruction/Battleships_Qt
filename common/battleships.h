@@ -11,6 +11,7 @@
 class Battleships : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString playerName READ getPlayerName WRITE setPlayerName NOTIFY playerNameChanged)
+    Q_PROPERTY(QString enemyName READ getEnemyName WRITE setEnemyName NOTIFY enemyNameChanged)
     Q_PROPERTY(quint16 shotsFired READ getShotsFired NOTIFY shotsFiredChanged)
     Q_PROPERTY(QQmlListProperty<Ship> availableShips READ getAvailableShips_Quick NOTIFY availableShipsChanged)
     Q_PROPERTY(Board* board READ board NOTIFY boardChanged)
@@ -19,7 +20,9 @@ public:
     Battleships(QObject* parent = 0);
     ~Battleships();
     void setPlayerName(const QString& playerName);
+    void setEnemyName(const QString& enemyName);
     QString getPlayerName() const;
+    QString getEnemyName() const;
     Q_INVOKABLE void inkrementShots();
     quint16 getShotsFired() const;
     Q_INVOKABLE void reset();
@@ -29,12 +32,14 @@ public:
     Board *enemyBoard();
 private:
     QString playerName;             // Player name
+    QString enemyName;
     quint16 shotsFired;             // Counter for fired shots
     QList<Ship*> availableShips;    // List of ships, to be placed
     static int availableShips_count(QQmlListProperty<Ship> *property);
     static Ship *availableShips_at(QQmlListProperty<Ship> *property, int index);
 signals:
     void playerNameChanged();
+    void enemyNameChanged();
     void shotsFiredChanged();
     void availableShipsChanged();
     void boardChanged();

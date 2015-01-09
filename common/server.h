@@ -26,6 +26,7 @@ public:
     void setBattleships(Battleships *battleships);
 private slots:
     void acceptConnection();
+    void clientDisconnected();
 private:
     QTcpServer server;
     QPointer<QTcpSocket> socket;

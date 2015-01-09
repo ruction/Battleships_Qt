@@ -31,14 +31,22 @@ void Server::acceptConnection()
     } else {
         this->socket = client;
         this->network.setSocket(this->socket, "server");
-        connect(this->socket, SIGNAL(disconnected()), this->socket, SLOT(deleteLater()));
+        connect(this->socket, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
     }
+}
+
+void Server::clientDisconnected()
+{
+    network.setSocket(NULL, QString());
+
+    this->socket->deleteLater();
 }
 
 void Server::disconnect()
 {
     qDebug() << "Server closed" << flush;
-    server.close();
+    if (this->socket)
+        this->socket->disconnectFromHost();
 }
 
 QString Server::getIp()

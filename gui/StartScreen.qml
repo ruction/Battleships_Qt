@@ -335,6 +335,32 @@ ApplicationWindow {
     }
 
     MessageDialog {
+        id: connection_lost
+        title: "Connection to server lost..."
+        text: "Connection to server lost..."
+        visible: false
+        onAccepted: {
+            battleships.board.reset();
+            battleships.enemyBoard.reset();
+            battleships.reset();
+            gameLogic.state = "HomeScreen"
+        }
+    }
+
+    MessageDialog {
+        id: gameRefused_dialog
+        title: "Game refused from server..."
+        text: "Game refused from server..."
+        visible: false
+        onAccepted: {
+            battleships.board.reset();
+            battleships.enemyBoard.reset();
+            battleships.reset();
+            gameLogic.state = "HomeScreen"
+        }
+    }
+
+    MessageDialog {
         id: won_dialog
         title: "YOU WON!"
         text: battleships.playerName + " you won!! <br> Shots: " + battleships.shotsFired
@@ -375,6 +401,36 @@ ApplicationWindow {
 
             onGameFinished: {
                 won_dialog.visible = true;
+            }
+        }
+
+        Connections {
+            target: battleships.board
+
+            onGameFinished: {
+                quitGame_dialog.visible = true;
+            }
+        }
+
+        Connections {
+            target: newGameScreen.network
+
+            onStartGame: {
+                console.log("start game!!!");
+            }
+
+            onGameRefused: {
+                gameRefused_dialog.visible = true;
+            }
+        }
+
+        Connections {
+            target: client
+
+            onGameDisconnected: {
+                if (!gameRefused_dialog.visible == true) {
+                    connection_lost.visible = true;
+                }
             }
         }
 

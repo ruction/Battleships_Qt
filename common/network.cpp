@@ -22,7 +22,6 @@ void Network::setSocket(QTcpSocket *socket, QString kind)
     stream.setDevice(this->socket);
 
     if (this->socket) {
-
         connect(this->socket, SIGNAL(readyRead()), this, SLOT(readData()));
     }
 }
@@ -68,17 +67,15 @@ void Network::receivedGameOffer(QJsonObject options)
     quint16 boardHeight = options.value("board_size_y").toInt();
     QString shipsPreset = options.value("ships_preset").toString();
     QString playerName = options.value("player_name").toString();
-    qDebug() << boardWidth;
-    qDebug() << boardHeight;
-    qDebug() << shipsPreset;
-    qDebug() << playerName;
 
-    if (this->kind == "server") {
-
+    if (battleships->board()->getHeight() == boardHeight && battleships->board()->getWidth() == boardWidth) {
+        battleships->setEnemyName(playerName);
+        emit startGame();
+        sendGameOfferReply("true");
     } else {
-
+        sendGameOfferReply("false");
+        socket->disconnectFromHost();
     }
-
 }
 
 void Network::receivedShot(QJsonObject options)
@@ -123,10 +120,6 @@ void Network::receivedShotReply(QJsonObject options)
 
     // Only set if ship is sunk otherwise its null
 
-    qDebug() << "result" << result;
-    qDebug() << "global: " << this->x;
-    qDebug() << "global: " << this->y;
-
     if (result == "hit") {
         qDebug() << "hit!! received.";
         quint16 index = battleships->enemyBoard()->indexFromCoordinates(this->x, this->y);
@@ -142,8 +135,13 @@ void Network::receivedGameOfferReply(QJsonObject options)
 {
     QString playerName = options.value("player_name").toString();
     QString success = options.value("success").toString();
-    qDebug() << playerName;
-    qDebug() << success;
+
+    if (success == "true") {
+        battleships->setEnemyName(playerName);
+        emit startGame();
+    } else {
+        emit gameRefused();
+    }
 }
 
 void Network::receivedFinished(QJsonObject options)

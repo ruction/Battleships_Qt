@@ -42,11 +42,24 @@ void Battleships::setPlayerName(const QString& playerName) {
     }
 }
 
+void Battleships::setEnemyName(const QString &enemyName)
+{
+    if (this->enemyName != enemyName) {
+        this->enemyName = enemyName;
+        emit enemyNameChanged();
+    }
+}
+
 /*
  * Returns the playerName parameter
  */
 QString Battleships::getPlayerName() const {
     return playerName;
+}
+
+QString Battleships::getEnemyName() const
+{
+    return enemyName;
 }
 
 /*
