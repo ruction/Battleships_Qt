@@ -5,13 +5,20 @@ import QtQuick.Layouts 1.1
 BaseScreen {
     id: waitForPlayer
 
-    signal cancel
     signal accept
 
     NavigationBar {
         id: navigationBar
 
         title: "SERVER - WAIT FOR PLAYER"
+    }
+
+    Connections {
+        target: newGameScreen.network
+
+        onStartGame: {
+            accept_btn.enabled = true
+        }
     }
 
     ColumnLayout {
@@ -22,25 +29,20 @@ BaseScreen {
         }
 
         Text {
-            text: "SERVER: " + battleships.playerName
+            text: "WAIT FOR PLAYER"
         }
-        Text {
-            text: "PORT: "
-        }
-        Text {
-            text: "MESSAGE: "
-        }
-        Button {
-            id: cancel_btn
-            text: "cancel"
 
-            onClicked: waitForPlayer.cancel()
-        }
         Button {
             id: accept_btn
+
+            enabled: false
+
             text: "accept"
 
-            onClicked: waitForPlayer.accept()
+            onClicked: {
+                waitForPlayer.accept()
+                accept_btn.enabled = false;
+            }
         }
     }
 }

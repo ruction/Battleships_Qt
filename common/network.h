@@ -37,6 +37,8 @@ private:
 signals:
     void startGame();
     void gameRefused();
+    void sunk(QString shipName);
+    void enemyQuitGame();
 };
 
 #endif // NETWORKCLIENT

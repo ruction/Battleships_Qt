@@ -106,9 +106,7 @@ void Network::receivedShot(QJsonObject options)
             result = "miss";
         }
 
-
         sendShotReply(result, "", "");
-
     }
 }
 
@@ -116,6 +114,7 @@ void Network::receivedShotReply(QJsonObject options)
 {
     // hit, sunk or miss
     QString result = options.value("result").toString();
+    QString ship = options.value("ship").toString();
     // shipname only set if ship sunk
 
     // Only set if ship is sunk otherwise its null
@@ -128,6 +127,7 @@ void Network::receivedShotReply(QJsonObject options)
         qDebug() << "sunk!! received.";
         quint16 index = battleships->enemyBoard()->indexFromCoordinates(this->x, this->y);
         battleships->enemyBoard()->addShipsPositionsMulti(index);
+        emit sunk(ship);
     }
 }
 
@@ -153,7 +153,7 @@ void Network::receivedFinished(QJsonObject options)
     if (reason == "won") {
         emit battleships->enemyBoard()->gameFinished();
     } else if (reason == "quit") {
-
+        emit enemyQuitGame();
     } else if (reason == "error") {
 
     }

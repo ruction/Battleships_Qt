@@ -7,7 +7,6 @@ import Battleships 1.0
 BaseScreen {
     id: gameScreenMulti
 
-    signal quitGame
     property Network network
 
     NavigationBar {
@@ -19,12 +18,20 @@ BaseScreen {
     ColumnLayout {
         anchors.centerIn: parent
 
+        Text {
+            text: battleships.enemyName
+        }
+
         EnemyBoardView {
             id: board_enemy
 
             scale: 0.93
             board: battleships.enemyBoard
             network: gameScreenMulti.network
+        }
+
+        Text {
+            text: battleships.playerName
         }
 
         MyBoardViewMulti {
@@ -41,13 +48,6 @@ BaseScreen {
                     z: 0
                 }
                 angle: 50
-            }
-        }
-        Button {
-            text: "QUIT GAME"
-            onClicked: quitGame()
-            anchors {
-                horizontalCenter: parent.horizontalCenter
             }
         }
     }

@@ -46,7 +46,6 @@ BaseScreen {
                 id: multiScreen
 
                 onNext: newGame.next();
-                onCancel: newGame.cancel()
                 onServer_signal: kind = "server"
                 onClient_signal: kind = "client"
 

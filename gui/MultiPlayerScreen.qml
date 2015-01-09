@@ -8,7 +8,6 @@ ColumnLayout {
     anchors.centerIn: parent
 
     signal next
-    signal cancel
     signal server_signal
     signal client_signal
 
@@ -154,12 +153,6 @@ ColumnLayout {
             id: start_btn
             text: "start game"
             onClicked: multiPlayer.next()
-        }
-        Button {
-            id: cancel_btn
-            text: "cancel"
-
-            onClicked: multiPlayer.cancel()
         }
     }
 }

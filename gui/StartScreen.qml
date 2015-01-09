@@ -308,7 +308,6 @@ ApplicationWindow {
         width: app.width
         height: app.height
 
-        onCancel: gameLogic.state = "NewGameScreen"
         onAccept: gameLogic.state = "GameScreenMulti"
     }
 
@@ -317,7 +316,6 @@ ApplicationWindow {
         width: app.width
         height: app.height
 
-        onCancel: gameLogic.state = "NewGameScreen"
         onAccept: gameLogic.state = "GameScreenMulti"
     }
 
@@ -330,7 +328,31 @@ ApplicationWindow {
             battleships.board.reset();
             battleships.enemyBoard.reset();
             battleships.reset();
-            gameLogic.state = "HomeScreen"
+            newGameScreen.network.sendFinished("quit");
+            gameLogic.state = "HomeScreen";
+        }
+    }
+
+    MessageDialog {
+        id: enemyQuitGame_dialog
+        title: "Enemy quit game"
+        text: "Enemy quit game"
+        visible: false
+        onAccepted: {
+            battleships.board.reset();
+            battleships.enemyBoard.reset();
+            battleships.reset();
+            server.disconnect();
+            gameLogic.state = "HomeScreen";
+        }
+    }
+
+    MessageDialog {
+        id: sunk_dialog
+        text: "ship sunk"
+        title: "ship sunk"
+        visible: false
+        onAccepted: {
         }
     }
 
@@ -362,8 +384,8 @@ ApplicationWindow {
 
     MessageDialog {
         id: won_dialog
-        title: "YOU WON!"
-        text: battleships.playerName + " you won!! <br> Shots: " + battleships.shotsFired
+        title: "GAME OVER"
+        text: "GAME OVER"
         visible: false
         onAccepted: {
             battleships.board.reset();
@@ -388,6 +410,7 @@ ApplicationWindow {
         }
     }
 
+
     GameScreenMulti {
         id: gameScreenMulti
         width: app.width
@@ -400,6 +423,11 @@ ApplicationWindow {
             target: battleships.enemyBoard
 
             onGameFinished: {
+                connection_lost.visible = false;
+                sunk_dialog.visible = false;
+                enemyQuitGame_dialog.visible = false;
+                quitGame_dialog.visible = false;
+                gameRefused_dialog.visible = false;
                 won_dialog.visible = true;
             }
         }
@@ -408,6 +436,11 @@ ApplicationWindow {
             target: battleships.board
 
             onGameFinished: {
+                connection_lost.visible = false;
+                sunk_dialog.visible = false;
+                enemyQuitGame_dialog.visible = false;
+                gameRefused_dialog.visible = false;
+                won_dialog.visible = false;
                 quitGame_dialog.visible = true;
             }
         }
@@ -419,7 +452,29 @@ ApplicationWindow {
                 console.log("start game!!!");
             }
 
+            onSunk: {
+                sunk_dialog.title = shipName + " sunk";
+                sunk_dialog.text = shipName + " sunk";
+                if (won_dialog.visible == false) {
+                    sunk_dialog.visible = true;
+                }
+            }
+
+            onEnemyQuitGame: {
+                quitGame_dialog.visible = false;
+                connection_lost.visible = false;
+                sunk_dialog.visible = false;
+                gameRefused_dialog.visible = false;
+                won_dialog.visible = false;
+                enemyQuitGame_dialog.visible = true;
+            }
+
             onGameRefused: {
+                quitGame_dialog.visible = false;
+                connection_lost.visible = false;
+                sunk_dialog.visible = false;
+                won_dialog.visible = false;
+                enemyQuitGame_dialog.visible = false;
                 gameRefused_dialog.visible = true;
             }
         }
@@ -428,14 +483,13 @@ ApplicationWindow {
             target: client
 
             onGameDisconnected: {
-                if (!gameRefused_dialog.visible == true) {
-                    connection_lost.visible = true;
-                }
+                quitGame_dialog.visible = false;
+                sunk_dialog.visible = false;
+                gameRefused_dialog.visible = false;
+                won_dialog.visible = false;
+                enemyQuitGame_dialog.visible = false;
+                connection_lost.visible = true;
             }
-        }
-
-        onQuitGame: {
-            quitGame_dialog.visible = true
         }
     }
 }

@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.1
 BaseScreen {
     id: connectToServer
 
-    signal cancel
     signal accept
 
     NavigationBar {
@@ -22,18 +21,9 @@ BaseScreen {
         }
 
         Text {
-            text: "CLIENT: " + battleships.playerName
-        }
-        Text {
-            text: "PORT: "
+            text: "CONNECT TO SERVER"
         }
 
-        Button {
-            id: cancel_btn
-            text: "cancel"
-
-            onClicked: connectToServer.cancel()
-        }
 
         Button {
             id: accept_btn
